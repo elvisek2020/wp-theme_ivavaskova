@@ -1,0 +1,33 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/theme.json",
+	"version": 3,
+	"settings": {
+		"appearanceTools": false,
+		"color": {
+			"custom": false,
+			"customGradient": false,
+			"defaultPalette": false,
+			"defaultGradients": false,
+			"palette": [
+				{ "slug": "navy", "name": "Noční modrá", "color": "var(--iv-navy, #1b2559)" },
+				{ "slug": "gold", "name": "Zlatá hvězda", "color": "var(--iv-gold, #e8b931)" },
+				{ "slug": "accent", "name": "Modrá odkazů", "color": "var(--iv-accent, #2a5bb5)" },
+				{ "slug": "text", "name": "Text", "color": "var(--iv-text, #3a3f55)" },
+				{ "slug": "muted", "name": "Šedá", "color": "var(--iv-muted, #7d84a0)" },
+				{ "slug": "surface", "name": "Bílá", "color": "var(--iv-surface, #ffffff)" }
+			]
+		},
+		"layout": { "contentSize": "720px", "wideSize": "960px" },
+		"typography": {
+			"customFontSize": false,
+			"dropCap": false,
+			"fontSizes": [
+				{ "slug": "small", "name": "Malé", "size": "15px" },
+				{ "slug": "normal", "name": "Běžné", "size": "17px" },
+				{ "slug": "large", "name": "Velké", "size": "21px" },
+				{ "slug": "x-large", "name": "Obří", "size": "28px" }
+			]
+		},
+		"spacing": { "units": [ "px", "em", "rem", "%" ] }
+	}
+}

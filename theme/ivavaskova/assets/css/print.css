@@ -1,0 +1,9 @@
+/* Tisk: jen obsah článku, černobíle, adresy odkazů za textem. */
+.iv-navband, .iv-tools, .iv-footer, .iv-consent, .iv-lightbox, .iv-post-nav, .iv-comments .comment-respond, .skip-link, .wpulike { display: none !important; }
+body { background: #fff !important; color: #000 !important; font-size: 12pt; }
+.iv-header { background: none !important; }
+.iv-brand-logo { max-width: 200px; }
+.iv-card, .iv-post-nav a, .iv-comment-list .comment-body { box-shadow: none !important; border: 1px solid #ccc; }
+.iv-content a[href^="http"]::after { content: " (" attr(href) ")"; font-size: 9pt; color: #555; word-break: break-all; }
+.iv-content img, .iv-article-hero img { max-width: 70% !important; margin-inline: auto; box-shadow: none !important; page-break-inside: avoid; }
+h1, h2, h3 { page-break-after: avoid; color: #000 !important; }

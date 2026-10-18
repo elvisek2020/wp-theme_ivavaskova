@@ -1,0 +1,52 @@
+name: ivavaskova-dev
+
+# Lokální vývoj — PHP 7.4 jako na produkci (Wedos).
+services:
+  db:
+    image: mariadb:10.11
+    restart: unless-stopped
+    environment:
+      MARIADB_DATABASE: ivavaskova
+      MARIADB_USER: wp
+      MARIADB_PASSWORD: wp
+      MARIADB_ROOT_PASSWORD: root
+    volumes:
+      - db-data:/var/lib/mysql
+      - ./db:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 5s
+      timeout: 5s
+      retries: 60
+
+  wp:
+    image: wordpress:php7.4-apache
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "8081:80"    # http://localhost:8081
+    volumes:
+      - ./wp:/var/www/html
+      - ./wp-config.php:/var/www/html/wp-config.php:ro
+      - ../mu-plugins:/var/www/html/wp-content/mu-plugins
+      - ../theme/ivavaskova:/var/www/html/wp-content/themes/ivavaskova
+      - ../plugins/ivavaskova-core:/var/www/html/wp-content/plugins/ivavaskova-core
+
+  cli:
+    image: wordpress:cli-php7.4
+    profiles: ["cli"]
+    user: "33:33"
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - ./wp:/var/www/html
+      - ./wp-config.php:/var/www/html/wp-config.php:ro
+      - ../mu-plugins:/var/www/html/wp-content/mu-plugins
+      - ../theme/ivavaskova:/var/www/html/wp-content/themes/ivavaskova
+      - ../plugins/ivavaskova-core:/var/www/html/wp-content/plugins/ivavaskova-core
+
+volumes:
+  db-data:

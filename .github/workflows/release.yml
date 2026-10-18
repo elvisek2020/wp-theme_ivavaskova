@@ -1,0 +1,57 @@
+# Vydání pluginu a šablony z tagu vX.Y.Z.
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: Build & publish release ZIPs
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Kontrola verze (tag = Version pluginu i šablony)
+        run: |
+          TAG="${GITHUB_REF_NAME#v}"
+          CORE=$(grep -m1 -E '^ \* Version:' plugins/ivavaskova-core/ivavaskova-core.php | awk '{print $3}')
+          [ "$TAG" = "$CORE" ] || { echo "::error::Tag v$TAG ≠ Version pluginu $CORE"; exit 1; }
+          THEME=$(grep -m1 -E '^Version:' theme/ivavaskova/style.css | awk '{print $2}')   # THEME
+          [ "$TAG" = "$THEME" ] || { echo "::error::Tag v$TAG ≠ Version šablony $THEME"; exit 1; }   # THEME
+
+      - name: Kontrola syntaxe PHP
+        run: |
+          for d in plugins theme; do
+            if [ -d "$d" ]; then find "$d" -name '*.php' -print0; fi
+          done | xargs -0 -n1 php -l
+
+      - name: Sestavení ZIPů
+        run: |
+          (cd plugins && zip -rq ../ivavaskova-core.zip ivavaskova-core -x '*/.DS_Store')
+          (cd theme && zip -rq ../ivavaskova.zip ivavaskova -x '*/.DS_Store' -x 'ivavaskova/README.md' -x 'ivavaskova/.gitkeep')   # THEME
+
+      # Text vydání = sekce „## vX.Y.Z — RRRR-MM-DD“ z CHANGELOG.md.
+      # Bez sekce zůstanou jen automaticky generované poznámky.
+      - name: Release notes from CHANGELOG.md
+        run: |
+          awk -v tag="$GITHUB_REF_NAME" '
+            $1 == "##" { if (found) exit; if ($2 == tag) { found = 1; next } }
+            found
+          ' CHANGELOG.md > release-notes.md
+          if [ -s release-notes.md ]; then
+            echo "Release notes for $GITHUB_REF_NAME:"; cat release-notes.md
+          else
+            echo "::warning::CHANGELOG.md nemá sekci ## $GITHUB_REF_NAME"
+          fi
+
+      - name: GitHub Release s ZIPy
+        uses: softprops/action-gh-release@v3
+        with:
+          files: "*.zip"
+          body_path: release-notes.md
+          generate_release_notes: true
