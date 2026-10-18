@@ -1,5 +1,16 @@
 # Changelog
 
+## v0.1.1 — 2026-10-18
+
+### Šablona
+- **Podpis v patičce** jako na původním webu, na jednom řádku: „Copyright © 2018–2026 **Ivuš** · Design & code by ElvisEK“ (odkaz na elvisek.cz) · Nastavení cookies · Administrace. Jméno, autora i odkaz jde změnit v Přizpůsobit → Iva Vašková.
+
+### Iva Vašková Core
+- Beze změny, jen nové číslo verze (plugin a šablona se vydávají společně).
+
+### Vydání
+- Lokální vývoj v Dockeru přepnutý na PHP 8.5 (jako produkce).
+
 ## v0.1.0 — 2026-10-18
 
 ### Šablona

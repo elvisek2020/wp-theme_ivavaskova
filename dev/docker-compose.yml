@@ -1,6 +1,6 @@
 name: ivavaskova-dev
 
-# Lokální vývoj — PHP 7.4 jako na produkci (Wedos).
+# Lokální vývoj — PHP 8.5 jako na produkci (Wedos).
 services:
   db:
     image: mariadb:10.11
@@ -20,7 +20,7 @@ services:
       retries: 60
 
   wp:
-    image: wordpress:php7.4-apache
+    image: wordpress:php8.5-apache
     restart: unless-stopped
     depends_on:
       db:
@@ -35,7 +35,7 @@ services:
       - ../plugins/ivavaskova-core:/var/www/html/wp-content/plugins/ivavaskova-core
 
   cli:
-    image: wordpress:cli-php7.4
+    image: wordpress:cli-php8.5
     profiles: ["cli"]
     user: "33:33"
     depends_on:

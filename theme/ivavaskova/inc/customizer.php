@@ -12,6 +12,9 @@ function iv_mod_defaults(): array {
 		'iv_social_facebook'  => 'https://www.facebook.com/madeofstarsandlove/',
 		'iv_social_youtube'   => 'https://www.youtube.com/channel/UCOatukXNveP4NX2HTgU5NkA',
 		'iv_footer_text'      => '',
+		'iv_copyright_name'   => 'Ivuš',
+		'iv_credit_name'      => 'ElvisEK',
+		'iv_credit_url'       => 'https://www.elvisek.cz',
 		'iv_ga4_id'           => 'G-C9Y6LRWHZ7',
 	);
 }
@@ -39,11 +42,32 @@ add_action( 'customize_register', function ( WP_Customize_Manager $c ) {
 		) );
 	}
 
+	$c->add_setting( 'iv_copyright_name', array( 'sanitize_callback' => 'sanitize_text_field', 'default' => iv_mod_defaults()['iv_copyright_name'] ) );
+	$c->add_control( 'iv_copyright_name', array(
+		'section'     => 'iv_theme',
+		'label'       => 'Jméno v copyrightu',
+		'description' => 'Patička: „Copyright © roky Jméno“. Prázdné = název webu.',
+	) );
+
 	$c->add_setting( 'iv_footer_text', array( 'sanitize_callback' => 'sanitize_text_field', 'default' => '' ) );
 	$c->add_control( 'iv_footer_text', array(
 		'section'     => 'iv_theme',
-		'label'       => 'Text v patičce',
-		'description' => 'Zobrazí se pod ikonami. Prázdné = © roky a název webu.',
+		'label'       => 'Vlastní text copyrightu',
+		'description' => 'Nahradí celý řádek s copyrightem. Prázdné = výchozí text výše.',
+	) );
+
+	$c->add_setting( 'iv_credit_name', array( 'sanitize_callback' => 'sanitize_text_field', 'default' => iv_mod_defaults()['iv_credit_name'] ) );
+	$c->add_control( 'iv_credit_name', array(
+		'section'     => 'iv_theme',
+		'label'       => 'Autor webu',
+		'description' => 'Patička: „Design & code by …“. Prázdné = řádek se nezobrazí.',
+	) );
+
+	$c->add_setting( 'iv_credit_url', array( 'sanitize_callback' => 'esc_url_raw', 'default' => iv_mod_defaults()['iv_credit_url'] ) );
+	$c->add_control( 'iv_credit_url', array(
+		'section' => 'iv_theme',
+		'label'   => 'Odkaz na autora webu',
+		'type'    => 'url',
 	) );
 
 	$c->add_setting( 'iv_ga4_id', array(

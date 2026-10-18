@@ -366,6 +366,8 @@ hr { border: 0; border-top: 1px solid var(--iv-line); margin: 2.5em 0; }
 .iv-footer-menu { list-style: none; margin: 18px 0 0; padding: 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 18px; }
 .iv-footer-menu a { color: #e7e9f6; text-decoration: none; }
 .iv-copy { margin: 18px 0 0; max-width: 100%; }
+.iv-copy strong { color: #fff; font-weight: 600; }
+.iv-copy > span { white-space: nowrap; }
 
 /* ---------- Cookie lišta ---------- */
 .iv-consent {

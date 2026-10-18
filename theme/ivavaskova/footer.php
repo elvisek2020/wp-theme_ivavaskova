@@ -8,6 +8,9 @@ defined( 'ABSPATH' ) || exit;
 $iv_first = (int) get_the_date( 'Y', get_posts( array( 'numberposts' => 1, 'order' => 'ASC', 'fields' => 'ids' ) )[0] ?? 0 );
 $iv_years = $iv_first && $iv_first < (int) gmdate( 'Y' ) ? $iv_first . '–' . gmdate( 'Y' ) : gmdate( 'Y' );
 $iv_text  = trim( (string) get_theme_mod( 'iv_footer_text' ) );
+$iv_owner = trim( (string) get_theme_mod( 'iv_copyright_name' ) );
+$iv_cname = trim( (string) get_theme_mod( 'iv_credit_name' ) );
+$iv_curl  = trim( (string) get_theme_mod( 'iv_credit_url' ) );
 ?>
 </main>
 
@@ -24,12 +27,20 @@ $iv_text  = trim( (string) get_theme_mod( 'iv_footer_text' ) );
 		) );
 		?>
 		<p class="iv-copy">
-			<?php echo esc_html( $iv_text ? $iv_text : '© ' . $iv_years . ' ' . get_bloginfo( 'name' ) ); ?>
 			<?php
-			$iv_extra = array_filter( array( iv_consent_link(), is_user_logged_in() ? '' : '<a href="' . esc_url( wp_login_url() ) . '" rel="nofollow">Administrace</a>' ) );
-			if ( $iv_extra ) {
-				echo ' · ' . implode( ' · ', $iv_extra ); // phpcs:ignore WordPress.Security.EscapeOutput -- escapováno výše
+			// Jeden řádek: copyright · autor webu · cookies · administrace.
+			$iv_parts   = array();
+			$iv_parts[] = $iv_text
+				? esc_html( $iv_text )
+				: sprintf( 'Copyright ©&nbsp;%s <strong>%s</strong>', esc_html( $iv_years ), esc_html( $iv_owner ? $iv_owner : get_bloginfo( 'name' ) ) );
+			if ( $iv_cname ) {
+				$iv_parts[] = 'Design &amp; code by ' . ( $iv_curl
+					? sprintf( '<a href="%s" target="_blank" rel="noopener">%s</a>', esc_url( $iv_curl ), esc_html( $iv_cname ) )
+					: esc_html( $iv_cname ) );
 			}
+			$iv_parts[] = iv_consent_link();
+			$iv_parts[] = is_user_logged_in() ? '' : '<a href="' . esc_url( admin_url() ) . '" rel="nofollow">Administrace</a>';
+			echo '<span>' . implode( '</span> · <span>', array_filter( $iv_parts ) ) . '</span>'; // phpcs:ignore WordPress.Security.EscapeOutput -- escapováno výše
 			?>
 		</p>
 	</div>

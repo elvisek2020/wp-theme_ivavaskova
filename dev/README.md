@@ -1,6 +1,6 @@
 # Lokální vývoj
 
-Požadavek: Docker (Docker Desktop / OrbStack). PHP 7.4 jako na produkci.
+Požadavek: Docker (Docker Desktop / OrbStack). PHP 8.5 jako na produkci.
 
 ```bash
 cd dev
