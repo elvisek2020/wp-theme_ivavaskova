@@ -41,9 +41,6 @@ defined( 'ABSPATH' ) || exit;
 			</nav>
 			<div class="iv-tools">
 				<a class="iv-tool" href="<?php echo esc_url( home_url( '/?s=' ) ); ?>" data-iv-search aria-label="Hledat"><?php echo iv_icon( 'search', 20 ); // phpcs:ignore WordPress.Security.EscapeOutput ?></a>
-				<button type="button" class="iv-tool" data-iv-theme-toggle aria-label="Přepnout světlý / tmavý režim">
-					<?php echo iv_icon( 'moon', 20 ) . iv_icon( 'sun', 20 ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
-				</button>
 			</div>
 		</div>
 		<div class="iv-wrap iv-searchbar" hidden><?php get_search_form(); ?></div>

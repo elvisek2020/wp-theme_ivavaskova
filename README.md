@@ -20,7 +20,7 @@ Oba balíčky se vydávají společně se stejnou verzí.
 
 **Vzhled**
 - „Hvězdná noc“: barvy z ilustrace v logu — tmavě modrý pruh menu a patička se zlatými hvězdičkami, zaoblené karty článků
-- světlý i tmavý režim (podle zařízení, přepínač v menu, volba se pamatuje)
+- světlý i tmavý režim: podle zařízení, nebo ručně přepínačem Systém / Světlý / Tmavý v patičce (volba se pamatuje)
 - písma Comfortaa a Open Sans uložená přímo v šabloně
 - plně responzivní: menu pod tlačítkem, podmenu klepnutím
 

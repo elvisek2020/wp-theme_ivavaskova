@@ -43,6 +43,11 @@ $iv_curl  = trim( (string) get_theme_mod( 'iv_credit_url' ) );
 			echo '<span>' . implode( '</span> · <span>', array_filter( $iv_parts ) ) . '</span>'; // phpcs:ignore WordPress.Security.EscapeOutput -- escapováno výše
 			?>
 		</p>
+		<div class="iv-theme-switch" role="group" aria-label="Vzhled webu">
+			<button type="button" data-iv-theme-set="auto" aria-pressed="true">Systém</button>
+			<button type="button" data-iv-theme-set="light" aria-pressed="false"><?php echo iv_icon( 'sun', 16 ); // phpcs:ignore WordPress.Security.EscapeOutput ?> Světlý</button>
+			<button type="button" data-iv-theme-set="dark" aria-pressed="false"><?php echo iv_icon( 'moon', 16 ); // phpcs:ignore WordPress.Security.EscapeOutput ?> Tmavý</button>
+		</div>
 	</div>
 </footer>
 

@@ -9,7 +9,7 @@ Lehká hybridní šablona (PHP šablony + `theme.json`) ve stylu „Hvězdná no
 | `style.css` | hlavička šablony (verze!) |
 | `functions.php` | konstanty `IV_VERSION/DIR/URI` + seznam modulů z `inc/` |
 | `theme.json` | paleta (odkazuje na CSS proměnné), šířky obsahu, velikosti písma pro editor |
-| `header.php`, `footer.php` | hlavička (logo, menu, hledání, přepínač režimu), patička (sítě, copyright, cookies, lightbox) |
+| `header.php`, `footer.php` | hlavička (logo, menu, hledání), patička (sítě, copyright, přepínač Systém / Světlý / Tmavý, cookies, lightbox) |
 | `index.php` | výpis článků: titulka, rubriky, štítky, hledání |
 | `single.php`, `page.php` | článek, stránka |
 | `comments.php`, `searchform.php`, `404.php` | komentáře, hledání, nenalezeno |
@@ -24,5 +24,5 @@ Lehká hybridní šablona (PHP šablony + `theme.json`) ve stylu „Hvězdná no
 | `inc/comments-antispam.php` | honeypot a podepsané časové razítko v komentářích |
 | `inc/updater.php` | aktualizace z GitHub Releases |
 | `assets/css/` | `fonts.css`, `main.css` (tokeny nahoře), `editor.css`, `print.css` |
-| `assets/js/theme.js` | menu, podmenu, hledání, světlý/tmavý režim, lightbox |
+| `assets/js/theme.js` | menu, podmenu, hledání, přepínač režimu v patičce, lightbox |
 | `assets/fonts/` | Comfortaa a Open Sans (woff2, latin + latin-ext), licence OFL |

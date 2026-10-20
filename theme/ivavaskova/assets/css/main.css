@@ -159,13 +159,6 @@ hr { border: 0; border-top: 1px solid var(--iv-line); margin: 2.5em 0; }
 	background: transparent; color: var(--iv-navy-text); cursor: pointer; font: 600 15px var(--iv-font);
 }
 .iv-tool:hover, .iv-menu-toggle:hover { color: var(--iv-gold); background: rgba(255, 255, 255, .08); }
-[data-iv-theme-toggle] .iv-icon-sun { display: none; }
-:root[data-theme="dark"] [data-iv-theme-toggle] .iv-icon-sun { display: inline-block; }
-:root[data-theme="dark"] [data-iv-theme-toggle] .iv-icon-moon { display: none; }
-@media (prefers-color-scheme: dark) {
-	:root:not([data-theme="light"]) [data-iv-theme-toggle] .iv-icon-sun { display: inline-block; }
-	:root:not([data-theme="light"]) [data-iv-theme-toggle] .iv-icon-moon { display: none; }
-}
 .iv-menu-toggle { display: none; }
 .iv-searchbar { padding: 0 0 16px; }
 .iv-searchbar .iv-search { max-width: 560px; margin: 0 auto; }
@@ -368,6 +361,16 @@ hr { border: 0; border-top: 1px solid var(--iv-line); margin: 2.5em 0; }
 .iv-copy { margin: 18px 0 0; max-width: 100%; }
 .iv-copy strong { color: #fff; font-weight: 600; }
 .iv-copy > span { white-space: nowrap; }
+.iv-theme-switch {
+	display: inline-flex; gap: 2px; margin-top: 16px; padding: 3px; border-radius: 999px;
+	background: rgba(255, 255, 255, .08); border: 1px solid rgba(255, 255, 255, .12);
+}
+.iv-theme-switch button {
+	display: inline-flex; align-items: center; gap: 5px; padding: 5px 12px; border: 0; border-radius: 999px;
+	background: transparent; color: #c9cde4; font: 600 13px/1.2 var(--iv-font); cursor: pointer;
+}
+.iv-theme-switch button:hover { color: #fff; }
+.iv-theme-switch button[aria-pressed="true"] { background: var(--iv-gold); color: #1b2559; }
 
 /* ---------- Cookie lišta ---------- */
 .iv-consent {

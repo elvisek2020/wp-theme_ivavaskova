@@ -1,5 +1,5 @@
 /**
- * Šablona Iva Vašková — menu na mobilu, podmenu, hledání, přepínač světlého/tmavého režimu, lightbox.
+ * Šablona Iva Vašková — menu na mobilu, podmenu, hledání, přepínač režimu v patičce, lightbox.
  * Bez jQuery.
  */
 (function () {
@@ -7,19 +7,28 @@
 
 	var root = document.documentElement;
 
-	/* ---------- Světlý / tmavý režim ---------- */
-	function currentTheme() {
-		var t = root.getAttribute('data-theme');
-		if (t === 'dark' || t === 'light') { return t; }
-		return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+	/* ---------- Světlý / tmavý režim (přepínač v patičce: Systém / Světlý / Tmavý) ---------- */
+	var themeButtons = document.querySelectorAll('[data-iv-theme-set]');
+	function syncTheme() {
+		var t = root.getAttribute('data-theme') || 'auto';
+		themeButtons.forEach(function (b) {
+			b.setAttribute('aria-pressed', b.getAttribute('data-iv-theme-set') === t ? 'true' : 'false');
+		});
 	}
-	document.querySelectorAll('[data-iv-theme-toggle]').forEach(function (btn) {
+	themeButtons.forEach(function (btn) {
 		btn.addEventListener('click', function () {
-			var next = currentTheme() === 'dark' ? 'light' : 'dark';
-			root.setAttribute('data-theme', next);
-			try { localStorage.setItem('iv-theme', next); } catch (e) {}
+			var t = btn.getAttribute('data-iv-theme-set');
+			if (t === 'auto') {
+				root.removeAttribute('data-theme');
+				try { localStorage.removeItem('iv-theme'); } catch (e) {}
+			} else {
+				root.setAttribute('data-theme', t);
+				try { localStorage.setItem('iv-theme', t); } catch (e) {}
+			}
+			syncTheme();
 		});
 	});
+	syncTheme();
 
 	/* ---------- Menu ---------- */
 	var toggle = document.querySelector('.iv-menu-toggle');

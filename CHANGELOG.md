@@ -1,5 +1,13 @@
 # Changelog
 
+## v0.1.2 — 2026-10-20
+
+### Šablona
+- **Přepínač vzhledu v patičce** místo ikony v menu: **Systém / Světlý / Tmavý**. „Systém“ se řídí nastavením zařízení, ruční volba se pamatuje.
+
+### Iva Vašková Core
+- Beze změny, jen nové číslo verze (plugin a šablona se vydávají společně).
+
 ## v0.1.1 — 2026-10-18
 
 ### Šablona
