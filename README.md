@@ -59,6 +59,10 @@ Nahrazuje 6 dřívějších pluginů a funguje nezávisle na šabloně. Skládá
 | Ochrana obsahu | bez pravého tlačítka, kopírování a přetahování obrázků pro nepřihlášené (Nastavení → Iva Vašková Core) |
 | Zabezpečení | vypnuté XML-RPC a editor souborů, skrytá verze WP a uživatelé v REST, přesměrování autorských archivů, `readme.html` a `license.txt` → 403, HTTP hlavičky včetně HSTS a COOP |
 | Sitemap a AI | `/wp-sitemap.xml` bez uživatelů, `/llms.txt` |
+| Dvoufázové ověření | kód z aplikace v telefonu se záložními kódy, zapíná se v profilu, volitelně povinné pro správce |
+| WebP | nahrané JPG a PNG rovnou jako WebP, hromadný převod starších v Údržbě webu |
+| Počítadlo zobrazení | bez cookies, sloupec v přehledu článků, nejčtenější ve Zdraví webu |
+| Upozornění na odpověď | čtenář si u komentáře zaškrtne e-mail při odpovědi, odhlášení odkazem |
 
 **Údržba webu** (Nástroje → Údržba webu):
 - databáze: velikost tabulek, autoload, optimalizace

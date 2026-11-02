@@ -1,5 +1,16 @@
 # Changelog
 
+## v0.3.0 — 2026-11-02
+
+### Iva Vašková Core
+- **Dvoufázové ověření**: v profilu si každý uživatel může zapnout přihlášení navíc kódem z aplikace v telefonu (Google Authenticator, Microsoft Authenticator, 1Password, Bitwarden…), dostane 10 záložních kódů. Volitelně ho jde vyžadovat u správců (Nastavení → Iva Vašková Core). Chybné kódy se počítají do blokace a zapisují do logu přihlášení.
+- **WebP**: nově nahrané JPG a PNG se rovnou uloží jako WebP (menší soubory, fotky otočené podle EXIF). Starší obrázky jde převést v Nástroje → Údržba webu → Převod na WebP; původní soubory jdou do karantény a staré adresy se přesměrují.
+- **Počítadlo zobrazení** bez cookies a bez osobních údajů: sloupec Zobrazení v přehledu článků a stránek, dnešní, týdenní a měsíční součty a nejčtenější články ve widgetu Zdraví webu. Nepočítá přihlášené ani roboty.
+- **Upozornění na odpověď**: pod formulářem komentáře je zaškrtávátko „Pošlete mi e-mail, až někdo odpoví“; po schválení odpovědi přijde čtenáři e-mail s odkazem na odpověď a odkazem pro odhlášení.
+
+### Šablona
+- Vzhled zaškrtávátka upozornění na odpověď ve formuláři komentáře.
+
 ## v0.2.0 — 2026-11-02
 
 Převod pluginu i šablony na kanonické moduly skillu `wp-custom-theme` — stejný kód jako na ostatních webech, opravy se pak dostanou na všechny weby najednou. Nastavení, log přihlášení i volby v Přizpůsobit se převedou samy při prvním otevření administrace.

@@ -340,8 +340,10 @@ hr { border: 0; border-top: 1px solid var(--iv-line); margin: 2.5em 0; }
 	background: var(--iv-surface); color: var(--iv-text); font: inherit; font-size: 16px;
 }
 .comment-form input:focus, .comment-form textarea:focus, .iv-search input:focus { outline: 2px solid var(--iv-accent); outline-offset: 0; border-color: transparent; }
-.comment-form .comment-form-cookies-consent { display: flex; gap: 8px; align-items: flex-start; font-size: 14px; }
-.comment-form .comment-form-cookies-consent label { font-weight: 400; margin: 0; }
+.comment-form .comment-form-cookies-consent,
+.comment-form .comment-form-ekc-notify { display: flex; gap: 8px; align-items: flex-start; font-size: 14px; }
+.comment-form .comment-form-cookies-consent label,
+.comment-form .comment-form-ekc-notify label { font-weight: 400; margin: 0; display: flex; gap: 8px; align-items: flex-start; }
 .comment-notes, .logged-in-as { font-size: 14px; color: var(--iv-muted); }
 
 /* ---------- Hledání ---------- */
