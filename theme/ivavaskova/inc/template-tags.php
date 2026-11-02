@@ -1,36 +1,10 @@
 <?php
 /**
- * Pomocné funkce pro šablony: ikony, meta článku, rubriky, stránkování, logo.
+ * Projektové pomocné funkce šablony: logo s názvem, datum, rubriky, meta článku, stránkování.
+ * Ikony jsou z kanonu (ekt_icon()), sociální sítě z modulu social (ekt_social_links()).
  */
 
 defined( 'ABSPATH' ) || exit;
-
-/** Inline SVG ikona (stroke = currentColor). */
-function iv_icon( string $name, int $size = 20 ): string {
-	$paths = array(
-		'menu'      => '<path d="M4 7h16M4 12h16M4 17h16"/>',
-		'close'     => '<path d="M6 6l12 12M18 6L6 18"/>',
-		'moon'      => '<path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/>',
-		'sun'       => '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>',
-		'search'    => '<circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/>',
-		'chevron'   => '<path d="M6 9l6 6 6-6"/>',
-		'arrow'     => '<path d="M5 12h14M13 6l6 6-6 6"/>',
-		'arrow-l'   => '<path d="M19 12H5M11 6l-6 6 6 6"/>',
-		'instagram' => '<rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".8" fill="currentColor"/>',
-		'facebook'  => '<path d="M15 3h-2.5A4.5 4.5 0 0 0 8 7.5V10H5.5v4H8v7h4v-7h3l.5-4H12V8a1 1 0 0 1 1-1h2z"/>',
-		'youtube'   => '<rect x="2.5" y="5" width="19" height="14" rx="4"/><path d="M10 9.5v5l4.5-2.5z" fill="currentColor"/>',
-		'star'      => '<path d="M12 3l2.6 5.6 6 .7-4.5 4.1 1.2 6L12 16.4 6.7 19.4l1.2-6L3.4 9.3l6-.7z"/>',
-	);
-	if ( ! isset( $paths[ $name ] ) ) {
-		return '';
-	}
-	return sprintf(
-		'<svg class="iv-icon iv-icon-%1$s" width="%2$d" height="%2$d" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">%3$s</svg>',
-		esc_attr( $name ),
-		$size,
-		$paths[ $name ]
-	);
-}
 
 /** Datum česky: 7. ledna 2021 (s nedělitelnou mezerou). */
 function iv_date( $post = null ): string {
@@ -74,26 +48,12 @@ function iv_branding(): void {
 	echo '</a>';
 }
 
-/** Odkazy na sociální sítě z Přizpůsobit. */
-function iv_social_links( string $class = 'iv-social' ): void {
-	$links = array();
-	foreach ( array( 'instagram' => 'Instagram', 'facebook' => 'Facebook', 'youtube' => 'YouTube' ) as $key => $label ) {
-		$url = get_theme_mod( 'iv_social_' . $key );
-		if ( $url ) {
-			$links[] = sprintf( '<a href="%s" target="_blank" rel="noopener me" aria-label="%s">%s</a>', esc_url( $url ), esc_attr( $label ), iv_icon( $key, 22 ) );
-		}
-	}
-	if ( $links ) {
-		echo '<div class="' . esc_attr( $class ) . '">' . implode( '', $links ) . '</div>'; // phpcs:ignore WordPress.Security.EscapeOutput -- escapováno výše
-	}
-}
-
 /** Stránkování výpisu. */
 function iv_pagination(): void {
 	the_posts_pagination( array(
 		'mid_size'           => 1,
-		'prev_text'          => iv_icon( 'arrow-l', 18 ) . '<span class="screen-reader-text">Novější</span>',
-		'next_text'          => '<span class="screen-reader-text">Starší</span>' . iv_icon( 'arrow', 18 ),
+		'prev_text'          => ekt_icon( 'arrow-l', 18 ) . '<span class="screen-reader-text">Novější</span>',
+		'next_text'          => '<span class="screen-reader-text">Starší</span>' . ekt_icon( 'arrow', 18 ),
 		'screen_reader_text' => 'Stránkování',
 	) );
 }

@@ -8,7 +8,7 @@ defined( 'ABSPATH' ) || exit;
 get_header();
 ?>
 <div class="iv-wrap iv-narrow iv-404">
-	<p class="iv-404-stars" aria-hidden="true"><?php echo iv_icon( 'star', 28 ) . iv_icon( 'star', 40 ) . iv_icon( 'star', 28 ); // phpcs:ignore WordPress.Security.EscapeOutput ?></p>
+	<p class="iv-404-stars" aria-hidden="true"><?php echo ekt_icon( 'star', 28 ) . ekt_icon( 'star', 40 ) . ekt_icon( 'star', 28 ); // phpcs:ignore WordPress.Security.EscapeOutput ?></p>
 	<h1 class="iv-page-title">Stránka nenalezena</h1>
 	<p>Tahle stránka tu není — možná se přestěhovala, nebo je v adrese překlep.</p>
 	<?php get_search_form(); ?>

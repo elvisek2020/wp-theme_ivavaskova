@@ -1,4 +1,4 @@
-# Vydání pluginu a šablony z tagu vX.Y.Z.
+# Vydání pluginu a šablony z tagu vX.Y.Z (šablona workflow ze skillu wp-custom-theme).
 name: Release
 
 on:
@@ -9,6 +9,10 @@ on:
 permissions:
   contents: write
 
+env:
+  PHP_VERSION: "8.5"   # = verze PHP na produkci (WEDOS); při změně na hostingu změň i tady
+  REQUIRE_THEME: "0"   # THEME — "1" = šablona musí být v repu
+
 jobs:
   release:
     name: Build & publish release ZIPs
@@ -18,14 +22,27 @@ jobs:
 
       - name: Kontrola verze (tag = Version pluginu i šablony)
         run: |
+          case "$PHP_VERSION" in *x*) echo "::error::PHP_VERSION nahoře ve workflow nastav na verzi PHP produkce"; exit 1;; esac
           TAG="${GITHUB_REF_NAME#v}"
           CORE=$(grep -m1 -E '^ \* Version:' plugins/ivavaskova-core/ivavaskova-core.php | awk '{print $3}')
           [ "$TAG" = "$CORE" ] || { echo "::error::Tag v$TAG ≠ Version pluginu $CORE"; exit 1; }
-          THEME=$(grep -m1 -E '^Version:' theme/ivavaskova/style.css | awk '{print $2}')   # THEME
-          [ "$TAG" = "$THEME" ] || { echo "::error::Tag v$TAG ≠ Version šablony $THEME"; exit 1; }   # THEME
+          if [ -f theme/ivavaskova/style.css ]; then   # THEME
+            THEME=$(grep -m1 -E '^Version:' theme/ivavaskova/style.css | awk '{print $2}')   # THEME
+            [ "$TAG" = "$THEME" ] || { echo "::error::Tag v$TAG ≠ Version šablony $THEME"; exit 1; }   # THEME
+          elif [ "$REQUIRE_THEME" = "1" ]; then echo "::error::Chybí theme/ivavaskova/style.css"; exit 1;   # THEME
+          else echo "::notice::Šablona v repu zatím není, vydává se jen plugin."; fi   # THEME
 
-      - name: Kontrola syntaxe PHP
+      # PHP připnuté podle produkce: ubuntu-latest se posouvá a s ním i předinstalované PHP.
+      - name: PHP ${{ env.PHP_VERSION }} (jako na produkci)
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ env.PHP_VERSION }}
+          coverage: none
+          tools: none
+
+      - name: Kontrola syntaxe PHP ${{ env.PHP_VERSION }}
         run: |
+          php -v | head -n1
           for d in plugins theme; do
             if [ -d "$d" ]; then find "$d" -name '*.php' -print0; fi
           done | xargs -0 -n1 php -l
@@ -33,7 +50,9 @@ jobs:
       - name: Sestavení ZIPů
         run: |
           (cd plugins && zip -rq ../ivavaskova-core.zip ivavaskova-core -x '*/.DS_Store')
-          (cd theme && zip -rq ../ivavaskova.zip ivavaskova -x '*/.DS_Store' -x 'ivavaskova/README.md' -x 'ivavaskova/.gitkeep')   # THEME
+          if [ -f theme/ivavaskova/style.css ]; then   # THEME
+            (cd theme && zip -rq ../ivavaskova.zip ivavaskova -x '*/.DS_Store' -x 'ivavaskova/README.md' -x 'ivavaskova/.gitkeep')   # THEME
+          fi   # THEME
 
       # Text vydání = sekce „## vX.Y.Z — RRRR-MM-DD“ z CHANGELOG.md.
       # Bez sekce zůstanou jen automaticky generované poznámky.

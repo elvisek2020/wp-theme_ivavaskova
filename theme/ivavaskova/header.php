@@ -22,7 +22,7 @@ defined( 'ABSPATH' ) || exit;
 	<div class="iv-navband">
 		<div class="iv-wrap iv-navbar">
 			<button type="button" class="iv-menu-toggle" aria-expanded="false" aria-controls="iv-nav">
-				<?php echo iv_icon( 'menu', 22 ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+				<?php echo ekt_icon( 'menu', 22 ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
 				<span>Menu</span>
 			</button>
 			<nav class="iv-nav" id="iv-nav" aria-label="Hlavní menu">
@@ -40,7 +40,7 @@ defined( 'ABSPATH' ) || exit;
 				?>
 			</nav>
 			<div class="iv-tools">
-				<a class="iv-tool" href="<?php echo esc_url( home_url( '/?s=' ) ); ?>" data-iv-search aria-label="Hledat"><?php echo iv_icon( 'search', 20 ); // phpcs:ignore WordPress.Security.EscapeOutput ?></a>
+				<a class="iv-tool" href="<?php echo esc_url( home_url( '/?s=' ) ); ?>" data-iv-search aria-label="Hledat"><?php echo ekt_icon( 'search', 20 ); // phpcs:ignore WordPress.Security.EscapeOutput ?></a>
 			</div>
 		</div>
 		<div class="iv-wrap iv-searchbar" hidden><?php get_search_form(); ?></div>

@@ -19,7 +19,7 @@ while ( have_posts() ) :
 				<?php the_post_thumbnail( 'iv-wide', array( 'alt' => '', 'sizes' => '(max-width: 1000px) 100vw, 960px', 'loading' => 'eager' ) ); ?>
 			</figure>
 		<?php endif; ?>
-		<div class="iv-content iv-wrap iv-narrow">
+		<div class="iv-content iv-wrap iv-narrow" data-ekt-content>
 			<?php the_content(); ?>
 		</div>
 	</article>

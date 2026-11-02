@@ -1,5 +1,29 @@
 # Changelog
 
+## v0.2.0 — 2026-11-02
+
+Převod pluginu i šablony na kanonické moduly skillu `wp-custom-theme` — stejný kód jako na ostatních webech, opravy se pak dostanou na všechny weby najednou. Nastavení, log přihlášení i volby v Přizpůsobit se převedou samy při prvním otevření administrace.
+
+### Šablona
+- **Kanonické moduly** pro SEO, Google Analytics s cookie lištou, lightbox, videa, externí odkazy, sociální sítě, přepínač vzhledu, antispam komentářů a aktualizace; vzhled zůstává stejný.
+- **Cookie lišta**: nový neutrální text a tlačítka **Odmítnout / Přijmout**, volba platí 12 měsíců, po odmítnutí se smažou cookies Google Analytics, přihlášení se neměří.
+- **Lightbox** v nativním okně prohlížeče s počítadlem fotek („2 / 54“).
+- **SEO**: odkaz `canonical` na všech stránkách, hledání a kanály se neindexují.
+- **Přizpůsobit → Iva Vašková**: volby rozdělené do sekcí Patička, Sociální sítě, SEO a analytika a Články; dosavadní hodnoty zůstávají.
+- Vyžaduje PHP 8.1 nebo novější (web běží na 8.5).
+
+### Iva Vašková Core
+- **Nastavení → Iva Vašková Core**: nová stránka se všemi volbami pluginu (přihlášení, zabezpečení, SEO, obsah, aktualizace, administrace). Ochrana obsahu se přesunula sem z Nastavení → Obecné.
+- **Ochrana přihlášení**: opakované blokace z jedné IP se prodlužují, přihlašovací stránka ukazuje zbývající pokusy, v logu přihlášení jde blokace zrušit. Log zaznamenává i blokace.
+- **Zabezpečení navíc**: vypnutý editor souborů v administraci, skrytá verze WordPressu, `readme.html` a `license.txt` nedostupné (blok v `.htaccess`), hromadné REST API jen pro přihlášené, hlavičky HSTS a Cross-Origin-Opener-Policy.
+- **Údržba webu**: nové sekce Systém, Pozůstatky pluginů a Karanténa. Tabulky, volby a složky po odebraných pluginech jdou do karantény (nic se nemaže hned), smazat je jde až v sekci Karanténa.
+- **Zdraví webu**: navíc přihlášení (neúspěšné pokusy, blokované IP) a čekající aktualizace.
+- `/llms.txt`: úvod jde nastavit v Nastavení → Iva Vašková Core (do té doby zůstává dosavadní text).
+- Vyžaduje PHP 8.1 nebo novější.
+
+### Vydání
+- Workflow vydání podle nové šablony skillu: PHP 8.5 jako na produkci.
+
 ## v0.1.2 — 2026-10-20
 
 ### Šablona

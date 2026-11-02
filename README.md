@@ -2,7 +2,7 @@
 
 [![Release](https://img.shields.io/github/v/release/elvisek2020/wp-theme_ivavaskova)](https://github.com/elvisek2020/wp-theme_ivavaskova/releases/latest)
 ![WordPress](https://img.shields.io/badge/WordPress-6.5%2B-21759b)
-![PHP](https://img.shields.io/badge/PHP-7.4%2B-777bb4)
+![PHP](https://img.shields.io/badge/PHP-8.1%2B-777bb4)
 ![Licence](https://img.shields.io/badge/licence-GPL--2.0--or--later-blue)
 
 Vlastní lehká šablona a plugin pro osobní web [www.ivavaskova.cz](https://www.ivavaskova.cz), které nahrazují starou šablonu Dollah a většinu pluginů.
@@ -39,25 +39,30 @@ Oba balíčky se vydávají společně se stejnou verzí.
 |---|---|
 | Identita webu | logo (ilustrace), název webu |
 | Menu | Hlavní menu, Menu v patičce |
-| Iva Vašková | Instagram, Facebook, YouTube, text v patičce, ID Google Analytics 4 |
+| Iva Vašková → Patička | jméno v copyrightu, od roku, vlastní text, autor webu a odkaz, odkaz Administrace |
+| Iva Vašková → Sociální sítě | Instagram, Facebook, YouTube (a další sítě) |
+| Iva Vašková → SEO a analytika | popis webu, ID Google Analytics 4 |
+| Iva Vašková → Články | zvětšovat i obrázky bez odkazu |
+
+Funkce šablony jsou kanonické moduly skillu `wp-custom-theme` (`theme/ivavaskova/inc/ekt/`, beze změn); vzhled a projektové věci jsou v `inc/setup.php`, `inc/template-tags.php`, `inc/site-ivavaskova.php` a `assets/css/`.
 
 ## Plugin Iva Vašková Core
 
-Nahrazuje 6 dřívějších pluginů a funguje nezávisle na šabloně.
+Nahrazuje 6 dřívějších pluginů a funguje nezávisle na šabloně. Skládá se z kanonických modulů skillu `wp-custom-theme` (`inc/*.php`, beze změn); projektové úpravy webu jsou v `inc/site-ivavaskova.php`. Volby: **Nastavení → Iva Vašková Core**.
 
 | Oblast | Co dělá |
 |---|---|
-| Přihlášení | limit 5 chybných pokusů / 15 min → blokace IP na 30 min, neutrální chybová hláška |
+| Přihlášení | limit 5 chybných pokusů / 15 min → blokace IP na 30 min s prodlužováním opakovaných blokací, zbývající pokusy, neutrální chybová hláška |
 | Log přihlášení | Nástroje → Log přihlášení (200 posledních pokusů), sloupec Poslední přihlášení u uživatelů |
 | Administrace | verze PHP a DB, IP serveru a paměť v patičce |
 | Aktualizace | automatické aktualizace WordPressu, pluginů, šablon a překladů; plugin samotný z GitHub Releases |
-| Ochrana obsahu | bez pravého tlačítka, kopírování a přetahování obrázků pro nepřihlášené (Nastavení → Obecné) |
-| Zabezpečení | vypnuté XML-RPC, skrytí uživatelů v REST, přesměrování autorských archivů, HTTP hlavičky |
+| Ochrana obsahu | bez pravého tlačítka, kopírování a přetahování obrázků pro nepřihlášené (Nastavení → Iva Vašková Core) |
+| Zabezpečení | vypnuté XML-RPC a editor souborů, skrytá verze WP a uživatelé v REST, přesměrování autorských archivů, `readme.html` a `license.txt` → 403, HTTP hlavičky včetně HSTS a COOP |
 | Sitemap a AI | `/wp-sitemap.xml` bez uživatelů, `/llms.txt` |
 
 **Údržba webu** (Nástroje → Údržba webu):
 - databáze: velikost tabulek, autoload, optimalizace
-- tabulky po vypnutých a odebraných pluginech (smazání vybraných)
+- pozůstatky odebraných pluginů (tabulky, volby, složky) do karantény, smazání až v sekci Karanténa
 - největší a nepoužité obrázky, rozbité interní odkazy
 - revize, koncepty a koš, transienty
 - widget **Zdraví webu** na Nástěnce
@@ -65,7 +70,7 @@ Nahrazuje 6 dřívějších pluginů a funguje nezávisle na šabloně.
 ## Požadavky
 
 - WordPress 6.5 nebo novější
-- PHP 7.4 nebo novější
+- PHP 8.1 nebo novější
 
 ## Instalace
 
@@ -82,7 +87,7 @@ Plugin i šablona se aktualizují z GitHub Releases přes běžnou obrazovku akt
 ```
 plugins/ivavaskova-core/   plugin (must-have)
 theme/ivavaskova/          šablona
-dev/                       lokální WordPress v Dockeru (PHP 7.4), viz dev/README.md
+dev/                       lokální WordPress v Dockeru (PHP 8.5), viz dev/README.md
 .github/workflows/         vydání z tagu vX.Y.Z → ZIPy do GitHub Release
 ```
 

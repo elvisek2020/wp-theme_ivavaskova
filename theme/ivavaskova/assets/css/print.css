@@ -1,5 +1,5 @@
 /* Tisk: jen obsah článku, černobíle, adresy odkazů za textem. */
-.iv-navband, .iv-tools, .iv-footer, .iv-consent, .iv-lightbox, .iv-post-nav, .iv-comments .comment-respond, .skip-link, .wpulike { display: none !important; }
+.iv-navband, .iv-tools, .iv-footer, .ekt-consent, .ekt-lightbox, .ekt-scheme, .iv-post-nav, .iv-comments .comment-respond, .skip-link, .wpulike { display: none !important; }
 body { background: #fff !important; color: #000 !important; font-size: 12pt; }
 .iv-header { background: none !important; }
 .iv-brand-logo { max-width: 200px; }
