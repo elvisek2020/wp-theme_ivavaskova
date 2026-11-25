@@ -1,0 +1,9 @@
+/*
+ * Editor bloků: stejný vzhled jako na webu (main.css a fonts.css se načítají také), tady jen
+ * úpravy pro plochu editoru.
+ */
+.editor-styles-wrapper { font: 400 17px/1.6 var(--f-body); color: var(--ink); background: #fff; }
+.editor-styles-wrapper .is-style-ivb-arc { margin-inline: 0; }
+.editor-styles-wrapper .is-style-ivb-arc li { position: relative !important; left: auto !important; top: auto !important; translate: none !important; }
+.editor-styles-wrapper .is-style-ivb-arc { display: flex !important; height: auto !important; padding-left: 0; }
+.editor-styles-wrapper .is-style-ivb-arc :is(h2, h3, h2 + p, .wp-block-buttons) { position: static !important; translate: none !important; width: auto !important; text-align: left !important; }

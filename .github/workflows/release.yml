@@ -20,17 +20,21 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
-      - name: Kontrola verze (tag = Version pluginu i šablony)
+      - name: Kontrola verze (tag = Version pluginu i všech šablon)
         run: |
           case "$PHP_VERSION" in *x*) echo "::error::PHP_VERSION nahoře ve workflow nastav na verzi PHP produkce"; exit 1;; esac
           TAG="${GITHUB_REF_NAME#v}"
           CORE=$(grep -m1 -E '^ \* Version:' plugins/ivavaskova-core/ivavaskova-core.php | awk '{print $3}')
           [ "$TAG" = "$CORE" ] || { echo "::error::Tag v$TAG ≠ Version pluginu $CORE"; exit 1; }
-          if [ -f theme/ivavaskova/style.css ]; then   # THEME
-            THEME=$(grep -m1 -E '^Version:' theme/ivavaskova/style.css | awk '{print $2}')   # THEME
-            [ "$TAG" = "$THEME" ] || { echo "::error::Tag v$TAG ≠ Version šablony $THEME"; exit 1; }   # THEME
-          elif [ "$REQUIRE_THEME" = "1" ]; then echo "::error::Chybí theme/ivavaskova/style.css"; exit 1;   # THEME
-          else echo "::notice::Šablona v repu zatím není, vydává se jen plugin."; fi   # THEME
+          # Každá šablona theme/*/style.css má verzi = tag (víc šablon jednoho webu = nový vzhled vedle starého).   # THEME
+          FOUND=0   # THEME
+          for CSS in theme/*/style.css; do   # THEME
+            [ -f "$CSS" ] || continue; FOUND=1   # THEME
+            THEME=$(grep -m1 -E '^Version:' "$CSS" | awk '{print $2}')   # THEME
+            [ "$TAG" = "$THEME" ] || { echo "::error::Tag v$TAG ≠ Version šablony $THEME ($CSS)"; exit 1; }   # THEME
+          done   # THEME
+          if [ "$FOUND" = "0" ] && [ "$REQUIRE_THEME" = "1" ]; then echo "::error::Chybí theme/*/style.css"; exit 1; fi   # THEME
+          [ "$FOUND" = "1" ] || echo "::notice::Šablona v repu zatím není, vydává se jen plugin."   # THEME
 
       # PHP připnuté podle produkce: ubuntu-latest se posouvá a s ním i předinstalované PHP.
       - name: PHP ${{ env.PHP_VERSION }} (jako na produkci)
@@ -50,9 +54,11 @@ jobs:
       - name: Sestavení ZIPů
         run: |
           (cd plugins && zip -rq ../ivavaskova-core.zip ivavaskova-core -x '*/.DS_Store')
-          if [ -f theme/ivavaskova/style.css ]; then   # THEME
-            (cd theme && zip -rq ../ivavaskova.zip ivavaskova -x '*/.DS_Store' -x 'ivavaskova/README.md' -x 'ivavaskova/.gitkeep')   # THEME
-          fi   # THEME
+          for CSS in theme/*/style.css; do   # ZIP = složka šablony, updater ho nabídne šabloně téhož názvu   # THEME
+            [ -f "$CSS" ] || continue   # THEME
+            T=$(basename "$(dirname "$CSS")")   # THEME
+            (cd theme && zip -rq "../$T.zip" "$T" -x '*/.DS_Store' -x "$T/README.md" -x "$T/.gitkeep")   # THEME
+          done   # THEME
 
       # Text vydání = sekce „## vX.Y.Z — RRRR-MM-DD“ z CHANGELOG.md.
       # Bez sekce zůstanou jen automaticky generované poznámky.

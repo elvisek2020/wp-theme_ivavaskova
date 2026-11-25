@@ -1,7 +1,7 @@
 <?php
 /**
  * EKT module: seo
- * Version: 1.0.1
+ * Version: 1.0.2
  * Requires: common
  * Replaces: wordpress-seo, seo-by-rank-math, wp-seopress, all-in-one-seo-pack, autodescription
  * Assets: –
@@ -236,7 +236,8 @@ function ekt_seo_data(): array {
 
 	if ( is_singular() && $object instanceof WP_Post ) {
 		$title = ekt_plain_title( $object );
-		$text  = has_excerpt( $object ) ? $object->post_excerpt : $object->post_content;
+		// Stránka chráněná heslem: text ani úryvek do meta značek nepatří (popis webu jako u titulky).
+		$text  = post_password_required( $object ) ? '' : ( has_excerpt( $object ) ? $object->post_excerpt : $object->post_content );
 		$url   = (string) wp_get_canonical_url( $object );
 		$type  = 'post' === $object->post_type ? 'article' : 'website';
 		if ( has_post_thumbnail( $object ) ) {

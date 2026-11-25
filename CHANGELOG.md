@@ -1,5 +1,32 @@
 # Changelog
 
+## v0.4.0 — 2026-11-25
+
+### Nová šablona „Mluvící bubliny“ (`ivavaskova-bubliny`)
+Zatím jen nainstalovat a projít v Živém náhledu – postup přechodu je v README. „Hvězdná noc“ zůstává jako záloha.
+- **Nový vzhled webu podle varianty 5**, kterou si Iva vybrala: texty v bublinách s ocáskem k fotkám, oblázkové fotky se zlatým obrysem, khaki úvod se střídajícími se fotkami a rotujícím zlatým sluncem, dětské knihy v nočním světě, do kterého se vstupuje bublinou. Písma Bricolage Grotesque, Karla, Caveat a Playwrite CZ se načítají z webu, ne z Google.
+- **Struktura webu praxe**: titulka, O mně, Co nabízím s nabídkami (šablona stránky „Nabídka“), Kontakt a rezervace (šablona „Kontakt a rezervace“), Moje dětské knihy (šablona „Svět knih“, knihy = podstránky), Blog. Titulka potřebuje statickou úvodní stránku (Domů) a stránku příspěvků (Blog).
+- **Jak lekce probíhá**: vzor bloku s fázemi na dráze slunce (na mobilu pod sebou) a tlačítkem Objednat se; styly bloků Bublina, Noc s hvězdami a Kniha.
+- **Rezervace jako krátký rozhovor**: lekce → skupinově, nebo individuálně → termín s volnými místy a přihláška, nebo poptávka individuální lekce. Bez JavaScriptu jsou oba formuláře pod sebou. Plovoucí tlačítko Rezervovat a pruh s nejbližším termínem.
+- **Rotující recenze** jako balíček bublin (na titulce všechny, u nabídky jen k ní).
+- Volby v Přizpůsobit → Titulka, Obecné (vlastní logo – zlaté sluníčko, do té doby zástupné) a Patička (kontakt, avatar, odběr novinek). Při přepnutí se převezme GA, sítě a patička; logo „Hvězdné noci“ zůstane jen jí.
+- Přístupnost: menu i podmenu z klávesnice (Escape, Tab zůstává v otevřeném mobilním menu), viditelný fokus i na tmavých plochách, skryté tlačítko Rezervovat není v pořadí Tab; tisk stránky knih černě na bílé.
+
+### Šablona „Hvězdná noc“
+- **Aktualizace šablon**: nabídka aktualizace přijde i neaktivní šabloně (záloha, šablona pro Živý náhled) a každá šablona dostane svůj ZIP; dřív se aktualizovala jen aktivní šablona.
+- Stránky chráněné heslem neprozradí text v popisu pro vyhledávače a sociální sítě.
+
+### Iva Vašková Core
+- **Rezervace** (nový modul): termíny skupinových lekcí s kapacitou, přihláška s GDPR a informovaným souhlasem, potvrzení e-mailem s odkazem na zrušení, upozornění správci, přehled přihlášených s CSV, mazání osobních údajů po termínu. Menu Rezervace, volby v Nastavení → Iva Vašková Core → Rezervace.
+- **Recenze** (nový modul): Iva je píše v administraci (jméno, text, ke které nabídce), šablona je střídá; bez veřejných adres a sitemapy.
+- **Kontaktní formulář** (modul): poptávka individuální lekce, zprávy v administraci (Zprávy z webu).
+- **Automatické aktualizace**: žádná šablona vydávaná z tohoto repozitáře se neaktualizuje automaticky (dřív platilo jen pro „Hvězdnou noc“), nabídne se v Nástěnka → Aktualizace.
+- **Dvoufázové ověření** zůstává volitelné i pro správce (nová verze modulu ho jinde ve výchozím stavu vyžaduje; tady platí „nevyžadovat“, dokud se volba v nastavení nezmění).
+- Odinstalace pluginu smaže i termíny, recenze a zprávy z webu (dřív zůstaly bez údajů).
+
+### Vydání
+- Workflow vydání balí všechny šablony v `theme/` (každá vlastní ZIP, verze = tag).
+
 ## v0.3.0 — 2026-11-02
 
 ### Iva Vašková Core

@@ -12,9 +12,10 @@ Vlastní lehká šablona a plugin pro osobní web [www.ivavaskova.cz](https://ww
 | Balíček | Typ | Popis |
 |---|---|---|
 | `ivavaskova-core` | plugin | funkce nezávislé na šabloně (bezpečnost, údržba, sitemap, ochrana obsahu) |
-| `ivavaskova` | šablona | vzhled „Hvězdná noc“ (světlý i tmavý režim, SEO, GA4 s cookie lištou, lightbox) |
+| `ivavaskova` | šablona | vzhled „Hvězdná noc“ (světlý i tmavý režim, SEO, GA4 s cookie lištou, lightbox) – současný web |
+| `ivavaskova-bubliny` | šablona | nový vzhled „Mluvící bubliny“ pro web praxe (nabídky, rezervace, recenze, svět dětských knih) – připravuje se, popis v [`theme/ivavaskova-bubliny/README.md`](theme/ivavaskova-bubliny/README.md) |
 
-Oba balíčky se vydávají společně se stejnou verzí.
+Všechny balíčky se vydávají společně se stejnou verzí.
 
 ## Šablona Iva Vašková
 
@@ -63,6 +64,9 @@ Nahrazuje 6 dřívějších pluginů a funguje nezávisle na šabloně. Skládá
 | WebP | nahrané JPG a PNG rovnou jako WebP, hromadný převod starších v Údržbě webu |
 | Počítadlo zobrazení | bez cookies, sloupec v přehledu článků, nejčtenější ve Zdraví webu |
 | Upozornění na odpověď | čtenář si u komentáře zaškrtne e-mail při odpovědi, odhlášení odkazem |
+| Rezervace | termíny skupinových lekcí s kapacitou (menu Rezervace), přihláška s GDPR a informovaným souhlasem, potvrzení e-mailem se zrušením odkazem, přehled přihlášených a CSV, mazání údajů po termínu; shortcode `[ekc_rezervace]` |
+| Recenze | recenze klientů (menu Recenze) k nabídkám, výpis šablonou nebo shortcodem `[ekc_recenze]` |
+| Kontaktní formulář | poptávka bez cizích služeb, zprávy v administraci (Zprávy z webu); shortcode `[ekc_contact_form]` |
 
 **Údržba webu** (Nástroje → Údržba webu):
 - databáze: velikost tabulek, autoload, optimalizace
@@ -80,19 +84,29 @@ Nahrazuje 6 dřívějších pluginů a funguje nezávisle na šabloně. Skládá
 
 1. Z [posledního vydání](https://github.com/elvisek2020/wp-theme_ivavaskova/releases/latest) stáhni `ivavaskova-core.zip` a `ivavaskova.zip`.
 2. V administraci: **Pluginy → Instalace pluginů → Nahrát plugin** → `ivavaskova-core.zip` → Aktivovat.
-3. **Vzhled → Šablony → Přidat novou → Nahrát šablonu** → `ivavaskova.zip` → Aktivovat.
+3. **Vzhled → Šablony → Přidat novou → Nahrát šablonu** → `ivavaskova.zip` (případně `ivavaskova-bubliny.zip`) → Aktivovat. Novou šablonu jde před aktivací projít v **Živém náhledu**.
 
 ## Aktualizace
 
-Plugin i šablona se aktualizují z GitHub Releases přes běžnou obrazovku aktualizací WordPressu.
+Plugin i obě šablony se aktualizují z GitHub Releases přes běžnou obrazovku aktualizací WordPressu (**Nástěnka → Aktualizace**, tlačítko **Zkontrolovat znovu** načte nové vydání hned). Aktualizace šablon nabízí updater aktivní šablony: dokud je aktivní jedna z nich, dostane nabídku každá nainstalovaná šablona, která má ve vydání svůj ZIP, i ta neaktivní (záloha, šablona pro Živý náhled). Šablona, která ve vydání svůj ZIP nemá, nedostane nic.
+
+Přechod na nový vzhled „Mluvící bubliny“:
+
+1. Aktualizuj plugin a šablonu „Hvězdná noc“ na verzi 0.4.0 nebo novější. Od ní se aktualizují i neaktivní šablony, starší verze aktualizovaly jen aktivní šablonu.
+2. Jednou nahraj `ivavaskova-bubliny.zip` z [posledního vydání](https://github.com/elvisek2020/wp-theme_ivavaskova/releases/latest): **Vzhled → Šablony → Přidat novou → Nahrát šablonu**, bez aktivace. Aktualizace z dalších vydání se jí pak nabídnou v **Aktualizacích** (vlastní šablony ani plugin se nikdy neinstalují automaticky, jen kliknutím).
+3. Před náhledem v **Aktualizacích** zkontroluj, že obě šablony mají poslední verzi.
+4. Připrav obsah podle [`theme/ivavaskova-bubliny/README.md`](theme/ivavaskova-bubliny/README.md): stránky se šablonami Nabídka, Svět knih a Kontakt a rezervace, termíny a recenze (stránky Domů a Blog založ předem).
+5. **Vzhled → Šablony → Iva Vašková – Mluvící bubliny → Živý náhled**: v **Nastavení úvodní stránky** zvol statickou stránku (úvodní Domů, příspěvky Blog), projdi web a přepni tlačítkem **Aktivovat a publikovat** – nastavení úvodní stránky se uloží současně s přepnutím (dřív ne, stará šablona by ukazovala prázdnou stránku Domů).
+6. „Hvězdná noc“ zůstává nainstalovaná jako záloha a aktualizuje se dál. Návrat je její aktivace ve **Vzhled → Šablony**.
 
 ## Vývoj
 
 ```
 plugins/ivavaskova-core/   plugin (must-have)
-theme/ivavaskova/          šablona
+theme/ivavaskova/          šablona „Hvězdná noc“
+theme/ivavaskova-bubliny/  šablona „Mluvící bubliny“ (nový vzhled)
 dev/                       lokální WordPress v Dockeru (PHP 8.5), viz dev/README.md
 .github/workflows/         vydání z tagu vX.Y.Z → ZIPy do GitHub Release
 ```
 
-Vydání: zvednout verzi v hlavičce pluginu i ve `style.css` šablony, zapsat `CHANGELOG.md`, commit, tag `vX.Y.Z`, push commitu i tagu.
+Vydání: zvednout verzi v hlavičce pluginu i ve `style.css` obou šablon, zapsat `CHANGELOG.md`, commit, tag `vX.Y.Z`, push commitu i tagu.

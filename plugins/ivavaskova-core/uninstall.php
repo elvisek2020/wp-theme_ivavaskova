@@ -1,7 +1,10 @@
 <?php
 /**
  * Odinstalace pluginu: smaže nastavení a data pluginu (options ekc_*, transienty, user meta ekc_*,
- * postmeta a comment meta _ekc_*, vlastní tabulky {prefix}ekc_*, např. ekc_pageviews).
+ * příspěvky typů ekc_event, ekc_testimonial a ekc_message – termíny, recenze a zprávy z webu –
+ * včetně jejich meta, postmeta a comment meta _ekc_*, vlastní tabulky {prefix}ekc_*, např.
+ * ekc_pageviews a ekc_reservations). Bez příspěvků by po nové instalaci zůstala poloviční data
+ * (termíny bez začátku a kapacity, recenze bez kontextu, texty zpráv bez odesílatele).
  *
  * Karanténa se NEMAŽE: složka SLUG-karantena (mimo web nebo ve wp-content) a tabulky {prefix}ekq_*
  * zůstávají, aby o nic nepřišel ten, kdo plugin odinstaluje omylem. Smazat je jde předtím
@@ -33,6 +36,11 @@ if ( is_multisite() ) {
 			$ekc_like( '_site_transient_timeout_ekc_' )
 		)
 	);
+}
+
+// Příspěvky vlastních typů obsahu (typy už nejsou registrované, wp_delete_post je smaže i tak, včetně meta a revizí).
+foreach ( (array) $wpdb->get_col( "SELECT ID FROM {$wpdb->posts} WHERE post_type IN ('ekc_event','ekc_testimonial','ekc_message')" ) as $ekc_id ) {
+	wp_delete_post( (int) $ekc_id, true );
 }
 
 // User meta (ekc_last_login, …), postmeta (_ekc_webp_fail, …) a comment meta (_ekc_notify, …).

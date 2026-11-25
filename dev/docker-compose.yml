@@ -32,6 +32,7 @@ services:
       - ./wp-config.php:/var/www/html/wp-config.php:ro
       - ../mu-plugins:/var/www/html/wp-content/mu-plugins
       - ../theme/ivavaskova:/var/www/html/wp-content/themes/ivavaskova
+      - ../theme/ivavaskova-bubliny:/var/www/html/wp-content/themes/ivavaskova-bubliny
       - ../plugins/ivavaskova-core:/var/www/html/wp-content/plugins/ivavaskova-core
 
   cli:
@@ -46,6 +47,7 @@ services:
       - ./wp-config.php:/var/www/html/wp-config.php:ro
       - ../mu-plugins:/var/www/html/wp-content/mu-plugins
       - ../theme/ivavaskova:/var/www/html/wp-content/themes/ivavaskova
+      - ../theme/ivavaskova-bubliny:/var/www/html/wp-content/themes/ivavaskova-bubliny
       - ../plugins/ivavaskova-core:/var/www/html/wp-content/plugins/ivavaskova-core
 
 volumes:

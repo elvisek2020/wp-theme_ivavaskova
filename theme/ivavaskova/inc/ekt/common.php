@@ -1,7 +1,7 @@
 <?php
 /**
  * EKT module: common
- * Version: 1.0.1
+ * Version: 1.0.2
  * Requires: –
  * Replaces: –
  * Assets: –
@@ -1345,7 +1345,8 @@ add_action( 'admin_notices', 'ekt_core_notice' );
 /* =========================================================================
  * 10) Přepnutí šablony (after_switch_theme, priorita 20 = po automatickém mapování WordPressu)
  * Převezme menu a logo ze staré šablony, zruší duplicitní menu, uklidí výchozí widgety,
- * doplní menu Polylangu po jazycích a převede staré theme_mods podle EKT_LEGACY.
+ * doplní menu Polylangu po jazycích, převede staré theme_mods podle EKT_LEGACY a převezme volby
+ * ekt_* z předchozí šablony na kanonu.
  * ====================================================================== */
 
 /**
@@ -1367,15 +1368,25 @@ function ekt_after_switch_theme( $old_name, $old_theme = null ): void {
 	ekt_switch_widgets();
 	ekt_switch_polylang_menus( $old_slug );
 
+	$mods = get_theme_mods();
+	$mods = is_array( $mods ) ? $mods : array();
+
 	// Staré theme_mods (ek_*, iv_*, mnd_*) ze šablony s jiným slugem → ekt_* (jen chybějící).
 	if ( ekt_legacy_prefixes() && $old ) {
-		$mods = get_theme_mods();
-		$mods = is_array( $mods ) ? $mods : array();
 		list( $new ) = ekt_convert_legacy_mods( $old );
 		foreach ( $new as $key => $value ) {
 			if ( ! array_key_exists( $key, $mods ) ) {
 				set_theme_mod( $key, $value );
+				$mods[ $key ] = $value;
 			}
+		}
+	}
+
+	// Přechod mezi dvěma šablonami na kanonu (nový vzhled téhož webu): kanonické volby ekt_*
+	// (GA ID, sítě, patička, meta description…) se převezmou, projektové ekt_site_* ne.
+	foreach ( $old as $key => $value ) {
+		if ( is_string( $key ) && str_starts_with( $key, 'ekt_' ) && ! str_starts_with( $key, 'ekt_site_' ) && ! array_key_exists( $key, $mods ) ) {
+			set_theme_mod( $key, $value );
 		}
 	}
 	do_action( 'ekt_after_switch_theme', $old_slug, $old );

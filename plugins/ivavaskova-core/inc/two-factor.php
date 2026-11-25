@@ -1,10 +1,10 @@
 <?php
 /**
  * EKC module: two-factor
- * Version: 1.1.0
+ * Version: 1.2.0
  * Requires: common
  * Replaces: two-factor, wp-2fa, wordfence-login-security, google-authenticator
- * Summary: Dvoufázové ověření kódem z aplikace (TOTP) se záložními kódy, volitelně povinné pro správce.
+ * Summary: Dvoufázové ověření kódem z aplikace (TOTP) se záložními kódy, ve výchozím stavu povinné pro správce.
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -58,7 +58,7 @@ ekc_settings_register(
 	'two_factor_required',
 	array(
 		'type'    => 'bool',
-		'default' => false,
+		'default' => true,
 		'label'   => 'Vyžadovat u správců',
 		'help'    => 'Správce bez dvoufázového ověření se po přihlášení dostane jen do svého profilu, dokud si ho nezapne.',
 		'section' => 'Přihlášení',
