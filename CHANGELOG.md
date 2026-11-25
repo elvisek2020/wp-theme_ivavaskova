@@ -1,5 +1,14 @@
 # Changelog
 
+## v0.4.6 — 2026-11-25
+
+### Šablona „Mluvící bubliny“
+- Svět knih na titulce navazuje přímo na vstupní noc: nadpis „Moje dětské knihy“ jen jednou (uprostřed noci) a knihy začínají hned pod ním, bez prázdné noci.
+- Konec světa knih jako rozednívání: noc pod knihami v dlouhém přechodu přejde přes ranní barvy do bílé, hvězdy slábnou, uprostřed vyjde zlaté slunce a „a zase zpátky do dne“ (místo teček a bublinky).
+- Zkušenosti z lekcí bez ostrého khaki pruhu – měkká záře za balíčkem recenzí.
+- Stránky s úvodním textem, ale bez náhledového obrázku (Co nabízím…), mají místo osamocené bubliny zlaté slunce s fotkou Ivy jako O mně.
+- Rezervace: rozhovor přes celou šířku panelu, odpovědi u pravého okraje (dřív odskočené doprostřed), formulář uprostřed panelu a tlačítko odeslání uprostřed formuláře.
+
 ## v0.4.5 — 2026-11-25
 
 ### Šablona „Mluvící bubliny“

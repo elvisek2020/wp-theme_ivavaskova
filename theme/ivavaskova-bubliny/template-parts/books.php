@@ -3,7 +3,7 @@
  * Noční svět dětských knih: tmavá plocha se zlatými hvězdami, ilustrace v obláčku (náhledový
  * obrázek stránky se šablonou „Svět knih“) a knihy v bublinách (podstránky té stránky).
  * Na titulce s „portálem“: noc se při posunu stránky rozevře z malé bubliny; na konci se svět knih
- * uzavře zaobleným okrajem a noc „odpluje“ do malé bubliny (tečky a bublina se postupně objeví).
+ * rozední: noc přejde přes ranní barvy do bílé, hvězdy slábnou a vyjde zlaté slunce.
  *
  * $args: page (WP_Post), portal (bool, titulka), single (bool, samotná stránka – nadpis h1 a obsah).
  */
@@ -88,7 +88,7 @@ $ivb_sky = array(
 	</div>
 <?php endif; ?>
 
-<section class="books iso<?php echo $ivb_single ? ' books--page' : ''; ?>" id="knihy">
+<section class="books iso<?php echo $ivb_single ? ' books--page' : ''; ?><?php echo $ivb_portal ? ' books--dawn' : ''; ?>" id="knihy">
 	<div class="books-stars" aria-hidden="true">
 		<?php
 		foreach ( $ivb_sky as $ivb_s ) {
@@ -102,7 +102,7 @@ $ivb_sky = array(
 				<?php if ( $ivb_single ) : ?>
 					<h1><?php echo esc_html( $ivb_title ); ?></h1>
 				<?php else : ?>
-					<h2><?php echo esc_html( $ivb_title ); ?></h2>
+					<h2<?php echo $ivb_portal ? ' class="books-title"' : ''; ?>><?php echo esc_html( $ivb_title ); ?></h2>
 				<?php endif; ?>
 				<?php if ( $ivb_lead ) : ?>
 					<p class="lead"><?php echo esc_html( $ivb_lead ); ?></p>
@@ -159,11 +159,16 @@ $ivb_sky = array(
 </section>
 
 <?php if ( $ivb_portal ) : ?>
-	<div class="books-exit" aria-hidden="true" data-ivb-exit>
-		<div class="dots"><i></i><i></i><i></i></div>
-		<div class="mini-wrap"><div class="mini-night">
-			<?php echo ivb_star( 'left:22px;top:24px;width:11px;height:11px' ) . ivb_star( 'left:50px;top:44px;width:5px;height:5px', true ); // phpcs:ignore WordPress.Security.EscapeOutput -- statické SVG ?>
-		</div></div>
-		<span class="hand">a zase zpátky do dne</span>
+	<div class="dawn" aria-hidden="true" data-ivb-exit>
+		<div class="dawn__stars">
+			<?php
+			// Hvězdy dole v noci slábnou, jak se rozednívá.
+			echo ivb_star( 'left:14%;top:6%;width:14px;height:14px;opacity:.8' ) . ivb_star( 'left:72%;top:10%;width:10px;height:10px;opacity:.7' ) // phpcs:ignore WordPress.Security.EscapeOutput -- statické SVG
+				. ivb_star( 'left:38%;top:16%;width:5px;height:5px;opacity:.6', true ) . ivb_star( 'left:88%;top:24%;width:7px;height:7px;opacity:.45' )
+				. ivb_star( 'left:24%;top:32%;width:4px;height:4px;opacity:.3', true ) . ivb_star( 'left:58%;top:38%;width:6px;height:6px;opacity:.2' );
+			?>
+		</div>
+		<div class="dawn__sun"><?php echo ivb_sun(); // phpcs:ignore WordPress.Security.EscapeOutput -- statické SVG ?></div>
+		<span class="hand dawn__text">a zase zpátky do dne</span>
 	</div>
 <?php endif; ?>

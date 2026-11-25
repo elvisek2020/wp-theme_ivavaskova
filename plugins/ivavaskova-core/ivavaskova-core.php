@@ -2,7 +2,7 @@
 /**
  * Plugin Name:       Iva Vašková Core
  * Description:       Funkce webu Iva Vašková nezávislé na šabloně. Nahrazuje 6 pluginů.
- * Version:           0.4.5
+ * Version:           0.4.6
  * Requires at least: 6.4
  * Tested up to:      7.1
  * Requires PHP:      8.1

@@ -532,18 +532,28 @@ body:has(.ekt-consent:not([hidden])) .fab { opacity: 0; visibility: hidden; poin
 .stage-title p { margin-top: 14px; font-size: 18px; }
 .stars { position: absolute; inset: 0; pointer-events: none; }
 .stars svg, .books-stars svg { position: absolute; color: var(--star); }
-.books-entry, .books-exit { display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 10px 0 0; }
-.books-exit { padding: 14px 0 0; }
-.books-exit .hand { margin-top: 8px; }
-/* Postupné „odplutí“ noci: tečky, bublinka a text naskočí jeden po druhém (třída z theme.js). */
-.exit-js .books-exit .dots i, .exit-js .books-exit .mini-wrap, .exit-js .books-exit .hand {
-	opacity: 0; scale: .3; transition: opacity .5s ease, scale .6s cubic-bezier(.34, 1.56, .64, 1);
+.books-entry { display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 10px 0 0; }
+/* Konec světa knih na titulce: rozednívání – noc přejde přes ranní barvy do bílé stránky,
+ * hvězdy slábnou a zlaté slunce vyjde, když se pás dostane do okna (třída is-in z theme.js). */
+.books--dawn { border-bottom-left-radius: 0; border-bottom-right-radius: 0; padding-bottom: 60px; }
+.dawn {
+	position: relative; height: clamp(560px, 95vh, 900px); overflow: hidden;
+	display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px;
+	background: linear-gradient(to bottom, var(--night2) 0%, #222C63 12%, #36407A 24%, #5A5C90 36%, #8A7EA3 47%, #BB9DA9 57%, #E1B9A3 66%, #F4D2A4 74%, #F9E6C4 83%, #FDF5E6 92%, #fff 100%);
 }
-.exit-js .books-exit .dots i:nth-child(2) { transition-delay: .15s; }
-.exit-js .books-exit .dots i:nth-child(3) { transition-delay: .3s; }
-.exit-js .books-exit .mini-wrap { transition-delay: .48s; }
-.exit-js .books-exit .hand { scale: 1; translate: 0 8px; transition: opacity .6s ease .8s, translate .6s ease .8s; }
-.exit-js .books-exit.is-in .dots i, .exit-js .books-exit.is-in .mini-wrap, .exit-js .books-exit.is-in .hand { opacity: 1; scale: 1; translate: 0 0; }
+.dawn__stars { position: absolute; inset: 0; pointer-events: none; }
+.dawn__stars svg { position: absolute; color: var(--star); }
+.dawn__sun { position: relative; width: 170px; height: 170px; color: var(--gold); margin-top: 8vh; }
+.dawn__sun::before {
+	content: ""; position: absolute; inset: -60%; border-radius: 50%;
+	background: radial-gradient(circle, rgba(245, 220, 147, .85) 0%, rgba(245, 220, 147, .35) 35%, rgba(245, 220, 147, 0) 68%);
+}
+.dawn__sun svg { position: relative; width: 100%; height: 100%; animation: ivb-spin 180s linear infinite; }
+.dawn__text { color: var(--olive); font-size: 30px; }
+.exit-js .dawn__sun { opacity: 0; translate: 0 70px; transition: opacity 1.4s ease, translate 1.8s cubic-bezier(.22, .8, .3, 1); }
+.exit-js .dawn__text { opacity: 0; transition: opacity 1s ease 1s; }
+.exit-js .dawn.is-in .dawn__sun { opacity: 1; translate: 0 0; }
+.exit-js .dawn.is-in .dawn__text { opacity: 1; }
 .mini-night { position: relative; width: 80px; height: 80px; border-radius: 50%; background: var(--night); overflow: hidden; }
 .mini-night svg { position: absolute; color: var(--star); }
 .mini-wrap { position: relative; }
@@ -559,7 +569,18 @@ body:has(.ekt-consent:not([hidden])) .fab { opacity: 0; visibility: hidden; poin
 	color: var(--night-t); padding: 120px 0 130px; overflow: hidden; margin-top: 10px;
 	border-radius: 50% 50% 50% 50% / 160px 160px 160px 160px;
 }
-.portal-on .books { border-radius: 0 0 50% 50% / 0 0 160px 160px; margin: 0; background: radial-gradient(ellipse 60% 40% at 30% 30%, #22306a 0%, rgba(34, 48, 106, 0) 100%), var(--night); }
+/* Na titulce navazuje svět knih přímo na noc vstupu: zasune se pod její spodek (průhledný začátek
+ * plynule přejde do noci), nadpis už svítí uprostřed noci, takže se znovu nevypisuje (zůstane pro
+ * čtečky). Dole plynule přechází do rozednívání (.dawn). */
+.portal-on .books {
+	border-radius: 0; margin: -36vh 0 0; padding-top: 20px;
+	background:
+		radial-gradient(ellipse 60% 40% at 30% 30%, rgba(34, 48, 106, .8) 0%, rgba(34, 48, 106, 0) 100%),
+		linear-gradient(to bottom, rgba(27, 37, 89, 0) 0, var(--night) 36vh, var(--night) 75%, var(--night2) 100%);
+}
+.portal-on .books .books-title {
+	position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; margin: -1px;
+}
 .books--page { border-radius: 50% 50% 0 0 / 160px 160px 0 0; margin-top: 24px; padding-bottom: 140px; }
 .books h1, .books h2 { color: var(--night-t); }
 .books .lead { color: #D4D7EA; }
@@ -689,7 +710,7 @@ body:has(.ekt-consent:not([hidden])) .fab { opacity: 0; visibility: hidden; poin
 .res-panel { background: var(--khaki); border-radius: 90px 140px 110px 70px / 80px 90px 130px 100px; padding: 80px 72px 90px; }
 .res-panel h2 { margin-bottom: 10px; }
 .res-panel .lead { color: var(--ink); }
-.res-body { max-width: 860px; margin-top: 40px; }
+.res-body { margin-top: 40px; } /* odpovědi u pravého okraje panelu jako v chatu */
 .res-panel h2 + .ask-row { margin-top: 30px; }
 .ask-row { display: flex; align-items: center; gap: 44px; margin: 0 0 44px; }
 .ask { --shape: var(--b4); padding: 26px 34px 28px; flex: 1 1 auto; min-width: 0; display: flex; flex-wrap: wrap; align-items: center; gap: 14px 48px; }
@@ -731,8 +752,8 @@ body:has(.ekt-consent:not([hidden])) .fab { opacity: 0; visibility: hidden; poin
 .ans input:checked + span { background: var(--olive); color: #fff; }
 .ans input:focus-visible + span { outline: 2px solid var(--ink); outline-offset: 3px; }
 .answers--mode .ans span { border-radius: 30px; }
-.form-bub { --shape: var(--b3); padding: 32px 34px 34px; margin: 0 0 0 70px; }
-.chat:not(.chat--on) .form-bub { margin-left: 0; }
+.form-bub { --shape: var(--b3); padding: 32px 34px 34px; margin: 0 70px; } /* stejně odsazený zleva (avatar) i zprava – formulář uprostřed panelu */
+.chat:not(.chat--on) .form-bub { margin-inline: 0; }
 
 /* Formuláře pluginu: rezervace (.ekc-res) a poptávka (contact-form) – sdílené třídy ekc-form__* */
 .ekc-form__notice { padding: 14px 18px; border-radius: 18px 24px 16px 22px; font-weight: 600; margin: 0 0 18px; }
@@ -750,6 +771,7 @@ body:has(.ekt-consent:not([hidden])) .fab { opacity: 0; visibility: hidden; poin
 .ekc-form__check .ekc-form__error { flex-basis: 100%; padding-left: 36px; }
 .ekc-form__consent { font-size: 14px; color: var(--muted); }
 .ekc-form__actions { margin: 10px 0 0; }
+.form-bub .ekc-form__actions { text-align: center; } /* odeslání uprostřed formuláře v rozhovoru */
 .ekc-res__fieldset { border: 0; margin: 0 0 22px; padding: 0; min-width: 0; }
 .ekc-res__legend { padding: 0; margin: 0 0 10px; }
 .ekc-res__group + .ekc-res__group { margin-top: 20px; }
@@ -791,7 +813,7 @@ body:has(.ekt-consent:not([hidden])) .fab { opacity: 0; visibility: hidden; poin
 /* =========================================================================
  * Recenze – balíček bublin
  * ====================================================================== */
-.reviews { background: var(--khaki); padding: 100px 0 110px; overflow: clip; }
+.reviews { background: radial-gradient(ellipse 62% 58% at 50% 54%, var(--khaki) 0%, rgba(200, 204, 160, .55) 45%, rgba(200, 204, 160, 0) 72%); padding: 100px 0 110px; overflow: clip; }
 .reviews--light { background: transparent; padding-top: 40px; }
 .rev-head { text-align: center; margin-bottom: 54px; }
 .deck-wrap { max-width: 720px; margin: 0 auto; position: relative; }
@@ -984,7 +1006,7 @@ body:has(.ekt-consent:not([hidden])) .fab { opacity: 0; visibility: hidden; poin
 	.ask-ava { flex-direction: row; }
 	.ask-row .ask { width: 100%; padding: 24px 24px 26px; }
 	.ask-row .ask::after { left: 34px; top: -28px; transform: scaleY(-1); }
-	.form-bub { margin-left: 0; padding: 28px 22px 30px; }
+	.form-bub { margin-inline: 0; padding: 28px 22px 30px; }
 	.ekc-res__label { padding: 12px 16px 12px 48px; }
 	.ekc-res__label::before { left: 16px; }
 	.res-panel { padding: 52px 18px 56px; }
@@ -992,7 +1014,8 @@ body:has(.ekt-consent:not([hidden])) .fab { opacity: 0; visibility: hidden; poin
 	.fab .lab { display: none; }
 	.books { padding: 100px 0 110px; border-radius: 50% 50% 50% 50% / 80px 80px 80px 80px; }
 	.books--page { border-radius: 50% 50% 0 0 / 80px 80px 0 0; }
-	.portal-on .books { border-radius: 0 0 50% 50% / 0 0 80px 80px; }
+	.dawn__sun { width: 110px; height: 110px; }
+	.dawn__text { font-size: 26px; }
 	.is-style-ivb-arc { padding-left: 44px; }
 	.is-style-ivb-arc li:nth-child(even) { margin-left: 12px; }
 	.is-style-ivb-bubble { padding: 24px 22px; }
@@ -1000,13 +1023,13 @@ body:has(.ekt-consent:not([hidden])) .fab { opacity: 0; visibility: hidden; poin
 }
 @media (prefers-reduced-motion: reduce) {
 	html { scroll-behavior: auto; }
-	.sun-big .rot, .about-medal__rays { animation: none; }
+	.sun-big .rot, .about-medal__rays, .dawn__sun svg { animation: none; }
 	.peb-big img { transition: none; }
 	.rev-card, .rev-card.out { transition: none; }
 	.btn:hover, .wp-block-button__link:hover, .is-style-ivb-arc .wp-block-buttons .wp-block-button__link:hover { transform: none; }
 }
 @media print {
-	.site-head, .strip, .fab, .foot, .portal, .books-entry, .books-exit, .books-stars, .rev-ctrl, .comment-respond { display: none !important; }
+	.site-head, .strip, .fab, .foot, .portal, .books-entry, .dawn, .books-stars, .rev-ctrl, .comment-respond { display: none !important; }
 	body { font-size: 12pt; }
 	.hero, .books, .res-panel, .reviews { background: none !important; color: #000; }
 	/* noční plochy: pozadí se netiskne, světlý text by na bílém papíře nebyl čitelný */

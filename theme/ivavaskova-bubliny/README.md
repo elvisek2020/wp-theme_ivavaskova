@@ -24,7 +24,7 @@ Povinně statická úvodní stránka: úvodní **Domů**, stránka příspěvků
 
 Na stránkách:
 
-- **Úryvek** (panel Stránka → Úryvek) je úvodní text v bublině vedle fotky a text karty.
+- **Úryvek** (panel Stránka → Úryvek) je úvodní text v bublině vedle fotky a text karty. Bez náhledového obrázku mluví bublina ze zlatého slunce s avatarem; bez úryvku i štítků je nahoře jen nadpis.
 - **Nastavení článku → Štítky**: „skupinově, individuálně“, „e-book“… (u nabídek a knih). Nabídka se štítkem obsahujícím „skupinově“ se v rezervaci ptá na formu (skupinově / individuálně) i bez vypsaného termínu; bez něj (Energetický obraz – „individuální domluva“) jde rovnou na poptávku.
 - **Nastavení článku → Výřez náhledového obrázku**: která část fotky zůstane v oblázku.
 - **Vzory bloků → Iva Vašková**: „Jak lekce probíhá“ (nadpis, podtitulek, 5 fází na dráze slunce, tlačítko Objednat se), „Bublina s textem“, „Kniha v noční bublině“.
@@ -55,7 +55,7 @@ Na stránkách:
 | `inc/site-ivavaskova.php` | výchozí hodnoty Přizpůsobit (GA, sítě, patička, popis webu), doprovodný plugin `ivavaskova-core` pro upozornění v administraci |
 | `inc/ekt/*.php` | kanonické moduly: `common`, `seo`, `analytics`, `content-links`, `lightbox`, `embeds`, `social`, `comments-antispam`, `typography`, `updater` |
 | `assets/css/` | `fonts.css`, `main.css` (tokeny varianty 5 + most `--ekt-*`), `editor.css` |
-| `assets/js/theme.js` | střídání fotek, menu a podmenu, tlačítko Rezervovat, slunce na dráze, balíček recenzí, vstup do noci a postupné bublinky na jejím konci |
+| `assets/js/theme.js` | střídání fotek, menu a podmenu, tlačítko Rezervovat, slunce na dráze, balíček recenzí, vstup do noci a východ slunce na jejím konci |
 | `assets/fonts/` | Bricolage Grotesque (osa opsz), Karla, Caveat, Playwrite CZ – woff2 a licence OFL |
 | `assets/img/` | hvězdy a obláček (SVG) |
 

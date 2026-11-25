@@ -1,8 +1,8 @@
 <?php
 /**
  * Začátek stránky: drobečková navigace (nadřazená stránka), s náhledovým obrázkem fotka v oblázku
- * a bublina s nadpisem, štítky a úryvkem; bez obrázku jen nadpis a úryvek. Stránka O mně bez
- * obrázku má místo fotky zlaté slunce s avatarem (jako na titulce).
+ * a bublina s nadpisem, štítky a úryvkem; bez obrázku jen nadpis a úryvek. Bez obrázku, ale
+ * s úryvkem nebo štítky je místo fotky zlaté slunce s avatarem (jako O mně na titulce).
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -12,10 +12,10 @@ $ivb_parent = $ivb_post && $ivb_post->post_parent ? get_post( $ivb_post->post_pa
 $ivb_img    = $ivb_post ? ivb_thumb_pebble( $ivb_post, '', '(max-width: 980px) 72vw, 420px' ) : '';
 $ivb_lead   = $ivb_post && has_excerpt( $ivb_post ) && ! post_password_required( $ivb_post ) ? get_the_excerpt( $ivb_post ) : '';
 $ivb_chips  = ivb_chips();
-$ivb_about  = ivb_about_page();
-$ivb_sun    = ! $ivb_img && $ivb_post && $ivb_about && $ivb_about->ID === $ivb_post->ID;
 // Bez fotky, úryvku i štítků by bublina nesla jen nadpis – pak stačí obyčejný nadpis stránky.
-$ivb_plain  = ! $ivb_img && ! $ivb_sun && '' === $ivb_lead && '' === $ivb_chips;
+$ivb_plain  = ! $ivb_img && '' === $ivb_lead && '' === $ivb_chips;
+// Bez fotky, ale s textem: místo fotky zlaté slunce s avatarem a bublina mluví z něj.
+$ivb_sun = ! $ivb_img && ! $ivb_plain;
 ?>
 <section class="sec page-top iso<?php echo $ivb_plain ? ' page-top--plain' : ''; ?>">
 	<div class="wrap">
