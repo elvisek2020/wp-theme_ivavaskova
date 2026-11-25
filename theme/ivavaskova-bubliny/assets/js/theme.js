@@ -310,13 +310,33 @@
 		if (/^\d[\d\s.,]*$/.test(t)) { el.textContent = t + '\u00a0Kč'; }
 	});
 
-	/* Konec světa knih: tečky, bublinka a text naskočí postupně, když se dostanou do okna. */
-	var exitEl = document.querySelector('[data-ivb-exit]');
-	if (exitEl && hasIO && !reduce) {
-		root.classList.add('exit-js');
-		new IntersectionObserver(function (en, obs) {
-			if (en[0].isIntersecting) { exitEl.classList.add('is-in'); obs.disconnect(); }
-		}, { rootMargin: '0px 0px -15% 0px' }).observe(exitEl);
+	/* Konec světa knih: slunce vychází s rolováním dolů a zapadá s rolováním nahoru (--rise 0–1).
+	 * 0 = pás právě vjíždí do okna (slunce vlevo dole na obzoru), 1 = pás je celý v okně (slunce
+	 * vpravo nahoře). Cesta je oblouk: rychle stoupá, nahoře se zpomalí. Pak --fade rozostří. */
+	var dawn = document.querySelector('[data-ivb-exit]');
+	if (dawn && !reduce) {
+		var dawnTick = false;
+		var dawnRise = function () {
+			if (dawnTick) { return; }
+			dawnTick = true;
+			requestAnimationFrame(function () {
+				dawnTick = false;
+				var r = dawn.getBoundingClientRect(), h = innerHeight;
+				if (r.bottom < -h || r.top > h * 2) { return; }
+				// p: cesta slunce, dokud pás vjíždí do okna (vlevo dole → střed → vpravo nahoře).
+				// f: rozostření, až je pás celý v okně a rolujeme dál.
+				var p = Math.min(Math.max((h - r.top) / r.height, 0), 1);
+				var f = Math.min(Math.max((h - r.bottom) / (h * 0.35), 0), 1);
+				var x = 6 + (innerWidth < 640 ? 72 : 82) * p, y = 92 - 64 * (1 - (1 - p) * (1 - p)); // na mobilu končí dál od okraje
+				dawn.style.setProperty('--rise', p.toFixed(3));
+				dawn.style.setProperty('--fade', f.toFixed(3));
+				dawn.style.setProperty('--sx', x.toFixed(2) + '%');
+				dawn.style.setProperty('--sy', y.toFixed(2) + '%');
+			});
+		};
+		addEventListener('scroll', dawnRise, { passive: true });
+		addEventListener('resize', dawnRise);
+		dawnRise();
 	}
 
 	/* ---------- Noc knih: vstup skrz bublinu ---------- */

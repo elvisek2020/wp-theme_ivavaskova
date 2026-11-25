@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.4.7 — 2026-11-25
+
+### Šablona „Mluvící bubliny“
+- Rozednívání za knihami je nižší (nezabírá celou obrazovku). Slunce vyjde vlevo dole a s rolováním stoupá po oblouku přes střed na druhou stranu, celou cestu ostré; rozsvěcuje oblohu a hvězdy slábnou. Teprve potom se rozostří a zprůhlední. Při rolování zpět zapadá. Spodek pásu je čistě bílý, bez viditelné hrany nad rezervací i bez linky pod knihami; bez textu „a zase zpátky do dne“.
+
 ## v0.4.6 — 2026-11-25
 
 ### Šablona „Mluvící bubliny“

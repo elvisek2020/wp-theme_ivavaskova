@@ -160,6 +160,7 @@ $ivb_sky = array(
 
 <?php if ( $ivb_portal ) : ?>
 	<div class="dawn" aria-hidden="true" data-ivb-exit>
+		<div class="dawn__light"></div>
 		<div class="dawn__stars">
 			<?php
 			// Hvězdy dole v noci slábnou, jak se rozednívá.
@@ -169,6 +170,5 @@ $ivb_sky = array(
 			?>
 		</div>
 		<div class="dawn__sun"><?php echo ivb_sun(); // phpcs:ignore WordPress.Security.EscapeOutput -- statické SVG ?></div>
-		<span class="hand dawn__text">a zase zpátky do dne</span>
 	</div>
 <?php endif; ?>
