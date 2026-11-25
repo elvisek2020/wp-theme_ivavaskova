@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.4.3 — 2026-11-25
+
+### Šablona „Mluvící bubliny“
+- Oprava: na titulce překrývala noční plocha za knihami konec světa knih (druhá kniha byla useknutá; chyba z v0.4.1).
+
 ## v0.4.2 — 2026-11-25
 
 ### Šablona „Mluvící bubliny“

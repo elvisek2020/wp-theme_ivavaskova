@@ -497,7 +497,10 @@ body:has(.ekt-consent:not([hidden])) .fab { opacity: 0; visibility: hidden; poin
  * Noc: vstup bublinou a svět knih
  * ====================================================================== */
 .portal { display: none; }
-.portal-on .portal { display: block; position: relative; height: 150vh; margin-top: -30vh; pointer-events: none; } /* vytáhne se do spodního okraje sekce nad ní, ať před bublinou nezůstane prázdná výška okna */
+.portal-on .portal { display: block; position: relative; height: 150vh; pointer-events: none; }
+/* Vstup se vytáhne do spodního okraje sekce nad ním, ať před bublinou nezůstane prázdná výška okna.
+ * Jen vstup: výstup leží za knihami a jeho noční plocha by překryla konec seznamu knih. */
+.portal-on .portal[data-ivb-portal="in"] { margin-top: -30vh; }
 .portal-on .books-entry, .portal-on .books-exit { display: none; }
 .stage { position: sticky; top: 0; height: 100vh; overflow: hidden; }
 .nightlayer { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 40%, #22306a 0%, var(--night) 60%); clip-path: circle(var(--r, 40px) at 50% 50%); }
