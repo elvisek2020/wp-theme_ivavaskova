@@ -66,6 +66,7 @@ $ivb_sky = array(
 	<div class="portal" data-ivb-portal="in" aria-hidden="true">
 		<div class="stage">
 			<span class="hand stage-cap">pojď dál – do světa knih</span>
+			<span class="stage-dots"><i></i><i></i><i></i></span>
 			<div class="nightlayer">
 				<div class="stars">
 					<?php
@@ -125,7 +126,7 @@ $ivb_sky = array(
 							<article class="bub book<?php echo $ivb_cover ? '' : ' book--noimg'; ?>">
 								<?php
 								if ( $ivb_cover ) {
-									echo wp_get_attachment_image( $ivb_cover, 'medium_large', false, array( 'sizes' => '(max-width: 640px) 230px, 210px' ) ); // phpcs:ignore WordPress.Security.EscapeOutput -- HTML z WordPressu
+									echo '<a class="book__cover" href="' . esc_url( get_permalink( $ivb_book ) ) . '" tabindex="-1" aria-hidden="true">' . wp_get_attachment_image( $ivb_cover, 'medium_large', false, array( 'sizes' => '(max-width: 640px) 230px, 210px' ) ) . '</a>'; // phpcs:ignore WordPress.Security.EscapeOutput -- HTML z WordPressu
 								}
 								?>
 								<div>

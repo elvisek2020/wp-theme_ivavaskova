@@ -31,7 +31,9 @@ if ( ! $ivb_pages ) {
 			<?php foreach ( $ivb_pages as $ivb_page ) : ?>
 				<?php $ivb_img = ivb_thumb_pebble( $ivb_page ); ?>
 				<article class="offer<?php echo $ivb_img ? '' : ' offer--noimg'; ?>">
-					<?php echo $ivb_img; // phpcs:ignore WordPress.Security.EscapeOutput -- HTML z WordPressu ?>
+					<?php if ( $ivb_img ) : ?>
+						<a class="offer__img" href="<?php echo esc_url( get_permalink( $ivb_page ) ); ?>" tabindex="-1" aria-hidden="true"><?php echo $ivb_img; // phpcs:ignore WordPress.Security.EscapeOutput -- HTML z WordPressu ?></a>
+					<?php endif; ?>
 					<div class="bub tail t-up">
 						<h3><a href="<?php echo esc_url( get_permalink( $ivb_page ) ); ?>"><?php echo esc_html( get_the_title( $ivb_page ) ); ?></a></h3>
 						<?php echo ivb_chips( $ivb_page ); // phpcs:ignore WordPress.Security.EscapeOutput -- escapováno ve funkci ?>

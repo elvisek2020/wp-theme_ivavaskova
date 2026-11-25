@@ -28,3 +28,9 @@ add_filter(
 // Doprovodný plugin je ivavaskova-core (sdílený se starou šablonou), ne EKT_SLUG-core: podle toho
 // common v upozornění pozná, že je nainstalovaný, a nabídne správný ZIP.
 add_filter( 'ekt_core_plugin', static fn(): string => 'ivavaskova-core' );
+
+// Termíny v rezervaci: „Volná místa: 4/12“ (modul reservations pluginu, filtr textů).
+add_filter(
+	'ekc_reservation_texts',
+	static fn( array $texts ): array => array_merge( $texts, array( 'free' => 'Volná místa: %1$d/%2$d' ) )
+);

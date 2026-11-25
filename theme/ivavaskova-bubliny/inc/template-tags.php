@@ -329,6 +329,28 @@ function ivb_icon( string $name ): string {
 }
 
 /**
+ * Vede adresa mimo web (jiný host než titulka)?
+ *
+ * @param string $url Adresa.
+ */
+function ivb_is_external( string $url ): bool {
+	$host = wp_parse_url( $url, PHP_URL_HOST );
+	return is_string( $host ) && '' !== $host && strtolower( $host ) !== strtolower( (string) wp_parse_url( home_url(), PHP_URL_HOST ) );
+}
+
+// Odkazy z menu mimo web se otevírají v novém okně.
+add_filter(
+	'nav_menu_link_attributes',
+	static function ( array $atts ): array {
+		if ( ! empty( $atts['href'] ) && ivb_is_external( (string) $atts['href'] ) ) {
+			$atts['target'] = '_blank';
+			$atts['rel']    = trim( ( $atts['rel'] ?? '' ) . ' noopener' );
+		}
+		return $atts;
+	}
+);
+
+/**
  * Hlavní menu, dokud správce žádné nepřiřadí: stránky do dvou úrovní (Co nabízím → nabídky).
  */
 function ivb_menu_fallback(): void {
@@ -363,7 +385,7 @@ function ivb_footer_links_fallback(): void {
 	}
 	echo '<ul>';
 	foreach ( $links as $url => $label ) {
-		printf( '<li><a href="%s">%s</a></li>', esc_url( $url ), esc_html( $label ) );
+		printf( '<li><a href="%s"%s>%s</a></li>', esc_url( $url ), ivb_is_external( (string) $url ) ? ' target="_blank" rel="noopener"' : '', esc_html( $label ) );
 	}
 	echo '</ul>';
 }

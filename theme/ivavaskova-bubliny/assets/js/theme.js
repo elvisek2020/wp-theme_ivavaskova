@@ -297,6 +297,12 @@
 		render();
 	});
 
+	/* Cena termínu zadaná jen číslem („800“) dostane „Kč“. */
+	document.querySelectorAll('.ekc-res__price').forEach(function (el) {
+		var t = el.textContent.trim();
+		if (/^\d[\d\s.,]*$/.test(t)) { el.textContent = t + '\u00a0Kč'; }
+	});
+
 	/* ---------- Noc knih: vstup a výstup skrz bublinu ---------- */
 	var portals = document.querySelectorAll('[data-ivb-portal]');
 	if (portals.length) {

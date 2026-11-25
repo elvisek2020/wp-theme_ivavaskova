@@ -1,5 +1,14 @@
 # Changelog
 
+## v0.4.1 — 2026-11-25
+
+### Šablona „Mluvící bubliny“
+- Kratší a vyplněná mezera před vstupem do světa knih na titulce.
+- Termíny v rezervaci s popisky pod sebou: Místo, Cena (u čísla doplní „Kč“), Volná místa ve tvaru 4/12.
+- Stránka bez fotky, úryvku a štítků má obyčejný nadpis místo prázdné bubliny; úvodní bublina bez fotky je širší.
+- Fotky nabídek a obálky knih jsou proklikávací na stránku lekce nebo knihy.
+- Odkazy z menu mimo web (Soma Synergy, Kundalini Activation Training…) se otevírají v novém okně.
+
 ## v0.4.0 — 2026-11-25
 
 ### Nová šablona „Mluvící bubliny“ (`ivavaskova-bubliny`)

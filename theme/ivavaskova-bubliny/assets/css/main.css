@@ -274,6 +274,9 @@ body:has(.ekt-consent:not([hidden])) .fab { opacity: 0; visibility: hidden; poin
 .offer:nth-child(3n+2) { margin-top: 64px; }
 .offer:nth-child(3n+3) { margin-top: 20px; }
 .offer .pebw { aspect-ratio: 3 / 4; }
+.offer__img, .book__cover { display: block; }
+.offer__img .peb img, .book__cover img { transition: transform .5s ease; }
+.offer__img:hover .peb img, .book__cover:hover img { transform: scale(1.04); }
 .offer:nth-child(3n+1) .pebw { --shape: var(--r2); }
 .offer:nth-child(3n+2) .pebw { --shape: var(--r3); }
 .offer:nth-child(3n+3) .pebw { --shape: var(--r5); }
@@ -290,7 +293,12 @@ body:has(.ekt-consent:not([hidden])) .fab { opacity: 0; visibility: hidden; poin
 /* =========================================================================
  * Stránka nabídky (šablona Nabídka) a obecná stránka
  * ====================================================================== */
-.page-top { border-bottom: 1px solid rgba(201, 165, 74, .5); }
+.page-top { border-bottom: 1px solid rgba(201, 165, 74, .5); padding-bottom: 80px; }
+.page-top--plain { padding: 72px 0 40px; border-bottom: 0; }
+.page-top--plain .wrap { width: min(var(--read), 100% - 48px); }
+.page-top--plain + .entry { padding-top: 0; }
+.sub-top--solo .bub { max-width: 860px; padding: 40px 48px 42px; }
+.sub-top__lead { font-size: 19px; line-height: 1.6; margin: 0; }
 .crumb { font-size: 14px; color: var(--muted); margin-bottom: 18px; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
 .crumb a { color: inherit; }
 .sub-top { display: grid; grid-template-columns: .8fr 1.2fr; gap: 72px; align-items: center; }
@@ -489,7 +497,7 @@ body:has(.ekt-consent:not([hidden])) .fab { opacity: 0; visibility: hidden; poin
  * Noc: vstup bublinou a svět knih
  * ====================================================================== */
 .portal { display: none; }
-.portal-on .portal { display: block; position: relative; height: 150vh; }
+.portal-on .portal { display: block; position: relative; height: 150vh; margin-top: -30vh; pointer-events: none; } /* vytáhne se do spodního okraje sekce nad ní, ať před bublinou nezůstane prázdná výška okna */
 .portal-on .books-entry, .portal-on .books-exit { display: none; }
 .stage { position: sticky; top: 0; height: 100vh; overflow: hidden; }
 .nightlayer { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 40%, #22306a 0%, var(--night) 60%); clip-path: circle(var(--r, 40px) at 50% 50%); }
@@ -497,7 +505,12 @@ body:has(.ekt-consent:not([hidden])) .fab { opacity: 0; visibility: hidden; poin
 	position: absolute; left: 50%; top: 50%; width: calc(var(--r, 40px) * 2); height: calc(var(--r, 40px) * 2);
 	translate: calc(-50% + 8px) calc(-50% + 8px); border: 1px solid var(--gold); border-radius: 50%; pointer-events: none;
 }
-.stage-cap { position: absolute; left: 50%; top: calc(50% - 92px); translate: -50% -50%; opacity: var(--capo, 1); white-space: nowrap; }
+.stage-cap { position: absolute; left: 50%; top: calc(50% - 150px); translate: -50% -50%; opacity: var(--capo, 1); white-space: nowrap; font-size: clamp(26px, 3vw, 34px); }
+.stage-dots { position: absolute; left: 50%; top: calc(50% - 112px); translate: -50% 0; display: flex; flex-direction: column; align-items: center; gap: 6px; opacity: var(--capo, 1); }
+.stage-dots i { display: block; border-radius: 50%; background: var(--night); }
+.stage-dots i:nth-child(1) { width: 8px; height: 8px; }
+.stage-dots i:nth-child(2) { width: 12px; height: 12px; }
+.stage-dots i:nth-child(3) { width: 16px; height: 16px; }
 .stage-title { position: absolute; left: 50%; top: 50%; translate: -50% -50%; text-align: center; color: var(--night-t); opacity: var(--t, 0); width: 90%; }
 .stage-title h2 { color: var(--star); font-size: clamp(38px, 6vw, 84px); }
 .stage-title p { margin-top: 14px; font-size: 18px; }
@@ -732,6 +745,9 @@ body:has(.ekt-consent:not([hidden])) .fab { opacity: 0; visibility: hidden; poin
 .ekc-res__date { font-weight: 700; font-size: 17px; flex-basis: 100%; }
 .ekc-res__title { font-weight: 600; }
 .ekc-res__place, .ekc-res__price, .ekc-res__note { color: var(--muted); }
+.ekc-res__place, .ekc-res__price, .ekc-res__free { flex-basis: 100%; }
+.ekc-res__place::before { content: "Místo: "; }
+.ekc-res__price::before { content: "Cena: "; }
 .ekc-res__note { flex-basis: 100%; font-style: italic; }
 .ekc-res__free { font-weight: 700; color: var(--olive); }
 .ekc-res__event--full .ekc-res__label, .ekc-res__event--closed .ekc-res__label, .ekc-res__event--cutoff .ekc-res__label {
