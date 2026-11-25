@@ -2,7 +2,9 @@
 /**
  * Panel Kontakt a rezervace jako krátký rozhovor: „Kterou lekci si vybíráš?“ → „Skupinově, nebo
  * individuálně?“ → skupinově termín a přihláška (modul reservations pluginu), individuálně nebo
- * bez vypsaných termínů poptávka (modul contact-form). Vedle bublina s kontaktem.
+ * bez vypsaných termínů poptávka (modul contact-form). Nad rozhovorem bublina s kontaktem.
+ * Na formu se rozhovor ptá u nabídek s otevřeným termínem nebo se štítkem „skupinově“; skupinově
+ * bez vypsaného termínu vede na poptávku.
  * Bez JS se ukážou oba formuláře pod sebou; rozhovor (data-ivb-chat) řídí assets/js/theme.js.
  * Na titulce i na stránce se šablonou „Kontakt a rezervace“.
  *
@@ -38,11 +40,16 @@ if ( '' === trim( $ivb_res . $ivb_ask_form . $ivb_ask ) ) {
 
 // Nabídky pro první otázku: stránky se šablonou Nabídka (JS doplní nabídky s termíny navíc).
 // Uložený název bez wptexturize, ať se shoduje se službou v nastavení rezervací (escapuje se při výstupu).
+// Hodnota = jde skupinově (štítek „skupinově“ v Nastavení článku → Štítky).
 $ivb_services = array();
 foreach ( ivb_offer_pages() as $ivb_offer ) {
-	$ivb_services[] = ivb_raw_title( $ivb_offer );
+	$ivb_name = ivb_raw_title( $ivb_offer );
+	if ( '' === $ivb_name || isset( $ivb_services[ $ivb_name ] ) ) {
+		continue;
+	}
+	$ivb_chips_raw             = function_exists( 'ekt_post_setting' ) ? (string) ekt_post_setting( 'site_chips', $ivb_offer ) : '';
+	$ivb_services[ $ivb_name ] = false !== mb_stripos( $ivb_chips_raw, 'skupin' );
 }
-$ivb_services = array_values( array_unique( array_filter( $ivb_services ) ) );
 
 $ivb_heading = array_key_exists( 'heading', $args ) ? (string) $args['heading'] : 'Kontakt a rezervace';
 $ivb_lead    = (string) ( $args['lead'] ?? 'Krátký rozhovor místo dlouhého formuláře.' );
@@ -54,10 +61,11 @@ $ivb_chat    = '' !== trim( $ivb_res . $ivb_ask_form );
 			<?php if ( '' !== $ivb_heading ) : ?>
 				<h2><?php echo esc_html( $ivb_heading ); ?></h2>
 			<?php endif; ?>
+			<?php echo $ivb_ask; // phpcs:ignore WordPress.Security.EscapeOutput -- escapováno v ask.php ?>
 			<?php if ( '' !== $ivb_lead ) : ?>
 				<p class="lead"><?php echo esc_html( $ivb_lead ); ?></p>
 			<?php endif; ?>
-			<div class="res-grid<?php echo ( $ivb_chat && '' !== trim( $ivb_ask ) ) ? '' : ' res-grid--solo'; ?>">
+			<div class="res-body">
 				<?php if ( $ivb_chat ) : ?>
 					<div class="chat" data-ivb-chat>
 						<div class="msg" data-ivb-step="service" hidden>
@@ -66,8 +74,8 @@ $ivb_chat    = '' !== trim( $ivb_res . $ivb_ask_form );
 						</div>
 						<fieldset class="answers" data-ivb-step="service" data-ivb-services hidden>
 							<legend class="screen-reader-text">Lekce</legend>
-							<?php foreach ( $ivb_services as $ivb_s ) : ?>
-								<label class="ans"><input type="radio" name="ivb_service" value="<?php echo esc_attr( $ivb_s ); ?>"><span><?php echo esc_html( $ivb_s ); ?></span></label>
+							<?php foreach ( $ivb_services as $ivb_s => $ivb_group ) : ?>
+								<label class="ans"><input type="radio" name="ivb_service" value="<?php echo esc_attr( (string) $ivb_s ); ?>"<?php echo $ivb_group ? ' data-ivb-group' : ''; ?>><span><?php echo esc_html( (string) $ivb_s ); ?></span></label>
 							<?php endforeach; ?>
 						</fieldset>
 
@@ -106,7 +114,6 @@ $ivb_chat    = '' !== trim( $ivb_res . $ivb_ask_form );
 						<?php endif; ?>
 					</div>
 				<?php endif; ?>
-				<?php echo $ivb_ask; // phpcs:ignore WordPress.Security.EscapeOutput -- escapováno v ask.php ?>
 			</div>
 		</div>
 	</div>

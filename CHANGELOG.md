@@ -1,5 +1,11 @@
 # Changelog
 
+## v0.4.2 — 2026-11-25
+
+### Šablona „Mluvící bubliny“
+- Rezervace: lekce k výběru pod sebou; bublina „Raději se nejdřív zeptat?“ je nad rozhovorem místo vedle něj, panel se tak nenatahuje.
+- Nabídka se štítkem „skupinově“ (Innerdance…) se ptá „Skupinově, nebo individuálně?“ i bez vypsaného termínu; skupinově bez termínu vede na zprávu „dám vědět o dalším termínu“.
+
 ## v0.4.1 — 2026-11-25
 
 ### Šablona „Mluvící bubliny“

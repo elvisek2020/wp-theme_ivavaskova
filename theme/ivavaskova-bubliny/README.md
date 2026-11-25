@@ -25,7 +25,7 @@ Povinně statická úvodní stránka: úvodní **Domů**, stránka příspěvků
 Na stránkách:
 
 - **Úryvek** (panel Stránka → Úryvek) je úvodní text v bublině vedle fotky a text karty.
-- **Nastavení článku → Štítky**: „skupinově, individuálně“, „e-book“… (u nabídek a knih).
+- **Nastavení článku → Štítky**: „skupinově, individuálně“, „e-book“… (u nabídek a knih). Nabídka se štítkem obsahujícím „skupinově“ se v rezervaci ptá na formu (skupinově / individuálně) i bez vypsaného termínu; bez něj (Energetický obraz – „individuální domluva“) jde rovnou na poptávku.
 - **Nastavení článku → Výřez náhledového obrázku**: která část fotky zůstane v oblázku.
 - **Vzory bloků → Iva Vašková**: „Jak lekce probíhá“ (nadpis, podtitulek, 5 fází na dráze slunce, tlačítko Objednat se), „Bublina s textem“, „Kniha v noční bublině“.
 - **Styly bloků**: Skupina → Bublina / Dráha slunce (fáze) / Noc s hvězdami, Média a text → Kniha (noc).

@@ -233,13 +233,18 @@
 
 		function render() {
 			var g = groupOf(state.service), open = hasOpen(g);
+			// Nabídka se štítkem „skupinově“ (data-ivb-group) se na formu ptá i bez vypsaného termínu.
+			var picked = svcBox.querySelector('input:checked');
+			var groupy = !!(picked && picked.hasAttribute('data-ivb-group'));
 			show('service', true);
-			var askMode = !!state.service && open && !!partSingle;
+			var askMode = !!state.service && !!partSingle && (open || groupy);
 			show('mode', askMode);
 			if (state.service && !askMode) { state.mode = open ? 'group' : (partSingle ? 'single' : 'group'); }
 			chat.querySelectorAll('input[name="ivb_mode"]').forEach(function (i) { i.checked = i.value === state.mode; });
 
-			var showGroup = state.mode === 'group', showSingle = state.mode === 'single';
+			// Skupinově bez otevřeného termínu: místo přihlášky poptávka („dám vědět o dalším termínu“).
+			var noTerm = state.mode === 'group' && !open && !!partSingle && !!state.service;
+			var showGroup = state.mode === 'group' && !noTerm, showSingle = state.mode === 'single' || noTerm;
 			if (partGroup) { partGroup.hidden = !showGroup; }
 			if (partSingle) { partSingle.hidden = !showSingle; }
 			show('group', showGroup);
@@ -254,12 +259,14 @@
 
 			if (showSingle) {
 				if (singleText) {
-					singleText.textContent = open
-						? 'Individuální lekci domluvíme po odeslání – napiš, kdy by se hodila.'
-						: (state.service ? 'Termín se domlouvá individuálně – stačí napsat.' : 'Napiš, domluvíme termín.');
+					singleText.textContent = noTerm
+						? 'Skupinový termín teď vypsaný není. Napiš a dám vědět o dalším – nebo domluvíme individuální lekci.'
+						: open
+							? 'Individuální lekci domluvíme po odeslání – napiš, kdy by se hodila.'
+							: (state.service ? 'Termín se domlouvá individuálně – stačí napsat.' : 'Napiš, domluvíme termín.');
 				}
 				if (inquiry && state.service && (inquiry.value === '' || inquiry.value === prefilled)) {
-					prefilled = 'Dobrý den, mám zájem o ' + (open ? 'individuální lekci ' : '') + state.service + '. ';
+					prefilled = 'Dobrý den, mám zájem o ' + (noTerm ? 'skupinovou lekci ' : (open ? 'individuální lekci ' : '')) + state.service + '. ';
 					inquiry.value = prefilled;
 				}
 			}
@@ -276,7 +283,7 @@
 			if (e.target.name !== 'ivb_mode') { return; }
 			state.mode = e.target.value;
 			render();
-			var target = chat.querySelector('[data-ivb-part="' + state.mode + '"]');
+			var target = chat.querySelector('[data-ivb-part]:not([hidden])');
 			if (target && target.scrollIntoView) { target.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'nearest' }); }
 		});
 
