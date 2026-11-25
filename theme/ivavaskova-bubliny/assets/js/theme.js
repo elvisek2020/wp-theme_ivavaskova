@@ -323,10 +323,12 @@
 				dawnTick = false;
 				var r = dawn.getBoundingClientRect(), h = innerHeight;
 				if (r.bottom < -h || r.top > h * 2) { return; }
-				// p: cesta slunce, dokud pás vjíždí do okna (vlevo dole → střed → vpravo nahoře).
-				// f: rozostření, až je pás celý v okně a rolujeme dál.
-				var p = Math.min(Math.max((h - r.top) / r.height, 0), 1);
-				var f = Math.min(Math.max((h - r.bottom) / (h * 0.35), 0), 1);
+				// p: cesta slunce (vlevo dole → střed → vpravo nahoře). Začíná, až je vidět spodek pásu
+				// (místo východu), a končí, když je střed pásu ve 40 % výšky okna.
+				// f: rozostření při dalším rolování.
+				var seen = h - r.top, start = r.height * 0.85, end = h * 0.6 + r.height * 0.5;
+				var p = Math.min(Math.max((seen - start) / Math.max(end - start, 1), 0), 1);
+				var f = Math.min(Math.max((seen - end) / (h * 0.3), 0), 1);
 				var x = 6 + (innerWidth < 640 ? 72 : 82) * p, y = 92 - 64 * (1 - (1 - p) * (1 - p)); // na mobilu končí dál od okraje
 				dawn.style.setProperty('--rise', p.toFixed(3));
 				dawn.style.setProperty('--fade', f.toFixed(3));

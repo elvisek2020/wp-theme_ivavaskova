@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.4.8 — 2026-11-25
+
+### Šablona „Mluvící bubliny“
+- Oprava: slunce za knihami vycházelo až uprostřed, protože se dráha rozběhla, když byla vidět jen horní část pásu. Teď začíná vlevo dole, jakmile je vidět spodek pásu.
+
 ## v0.4.7 — 2026-11-25
 
 ### Šablona „Mluvící bubliny“
