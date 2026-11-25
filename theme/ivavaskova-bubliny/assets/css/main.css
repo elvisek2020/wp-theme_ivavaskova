@@ -490,8 +490,19 @@ body:has(.ekt-consent:not([hidden])) .fab { opacity: 0; visibility: hidden; poin
 .about .pebw { aspect-ratio: 4 / 3; --shape: var(--r4); }
 .about .bub { --bub: var(--khaki-l); --shape: var(--b4); --ty: 40%; }
 .about h2 { margin-bottom: 16px; }
-.about-in--solo { grid-template-columns: minmax(0, 760px); }
-.about-in--solo .bub::after { display: none; }
+/* Bez fotky: bublina mluví ze zlatého slunce s avatarem */
+.about-in--sun { grid-template-columns: minmax(0, 360px) minmax(0, 720px); gap: 72px; justify-content: center; }
+.about-medal { display: flex; flex-direction: column; align-items: center; gap: 18px; }
+.about-medal__sun { position: relative; width: min(340px, 100%); aspect-ratio: 1; display: grid; place-items: center; }
+.about-medal__sun::before {
+	content: ""; position: absolute; inset: 6%; border-radius: 50%;
+	background: radial-gradient(circle, rgba(245, 220, 147, .9) 0%, rgba(245, 220, 147, .45) 40%, rgba(245, 220, 147, 0) 70%);
+}
+.about-medal__rays { position: absolute; inset: 0; width: 100%; height: 100%; color: var(--gold); animation: ivb-spin 180s linear infinite; }
+.about-medal__ava { position: relative; width: 46%; aspect-ratio: 1; border-radius: 50%; overflow: hidden; border: 5px solid #fff; box-shadow: 0 10px 30px -14px rgba(36, 38, 27, .5); }
+.about-medal__ava img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 20%; }
+.about-medal .hand { font-size: 28px; }
+.about-in--sun .bub { --ty: calc(50% - 40px); padding: 40px 44px 42px; }
 
 /* =========================================================================
  * Noc: vstup bublinou a svět knih
@@ -501,6 +512,10 @@ body:has(.ekt-consent:not([hidden])) .fab { opacity: 0; visibility: hidden; poin
 /* Vstup se vytáhne do spodního okraje sekce nad ním, ať před bublinou nezůstane prázdná výška okna.
  * Jen vstup: výstup leží za knihami a jeho noční plocha by překryla konec seznamu knih. */
 .portal-on .portal[data-ivb-portal="in"] { margin-top: -30vh; }
+/* Výstup leží pod koncem světa knih (výšku a přesah nastaví theme.js): bublina se zavírá, zatímco
+ * knihy odjíždějí nahoru, a za knihami nezůstane prázdná noc. */
+.portal-on .books { z-index: 1; }
+.portal-on .portal[data-ivb-portal="out"] { z-index: 0; }
 .portal-on .books-entry, .portal-on .books-exit { display: none; }
 .stage { position: sticky; top: 0; height: 100vh; overflow: hidden; }
 .nightlayer { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 40%, #22306a 0%, var(--night) 60%); clip-path: circle(var(--r, 40px) at 50% 50%); }
@@ -921,6 +936,8 @@ body:has(.ekt-consent:not([hidden])) .fab { opacity: 0; visibility: hidden; poin
 	.sub-top .bub::after { left: var(--tx, 44%); top: -28px; transform: scaleY(-1); }
 	.about-in { grid-template-columns: 1fr; gap: 56px; }
 	.about .bub::after { left: var(--tx, 44%); top: -28px; transform: scaleY(-1); }
+	.about-in--sun { gap: 48px; }
+	.about-medal__sun { width: min(280px, 80%); }
 	.books-grid { grid-template-columns: 1fr; gap: 110px; }
 	.book:nth-child(2n) { margin-left: 0; }
 	.posts, .posts--list { grid-template-columns: 1fr; gap: 30px; }
@@ -974,7 +991,7 @@ body:has(.ekt-consent:not([hidden])) .fab { opacity: 0; visibility: hidden; poin
 }
 @media (prefers-reduced-motion: reduce) {
 	html { scroll-behavior: auto; }
-	.sun-big .rot { animation: none; }
+	.sun-big .rot, .about-medal__rays { animation: none; }
 	.peb-big img { transition: none; }
 	.rev-card, .rev-card.out { transition: none; }
 	.btn:hover, .wp-block-button__link:hover, .is-style-ivb-arc .wp-block-buttons .wp-block-button__link:hover { transform: none; }

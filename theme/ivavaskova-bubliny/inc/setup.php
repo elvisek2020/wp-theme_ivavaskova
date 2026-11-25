@@ -170,7 +170,7 @@ ekt_setting_register(
 		'type'        => 'text',
 		'default'     => '',
 		'label'       => 'Pruh nad hlavičkou',
-		'description' => 'Krátké oznámení na všech stránkách, např. „Skupinové lekce v lednu – přihlášky otevřené“. Prázdné = nejbližší skupinový termín (když nějaký je).',
+		'description' => 'Krátké oznámení na všech stránkách, např. „Skupinové lekce v lednu – přihlášky otevřené“. Prázdné = bez pruhu.',
 		'section'     => 'home',
 		'priority'    => 50,
 	)

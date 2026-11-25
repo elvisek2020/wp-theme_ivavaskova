@@ -266,34 +266,13 @@ function ivb_avatar( string $class = '' ): string {
 }
 
 /**
- * Obsah pruhu nad hlavičkou: text z Přizpůsobit, jinak nejbližší skupinový termín (modul rezervací).
+ * Obsah pruhu nad hlavičkou: jen text z Přizpůsobit (prázdný = pruh se nevypíše).
  *
  * @return array{text:string,url:string}
  */
 function ivb_strip(): array {
 	$text = function_exists( 'ekt_opt' ) ? trim( (string) ekt_opt( 'site_strip' ) ) : '';
 	$url  = function_exists( 'ekt_opt' ) ? (string) ekt_opt( 'site_strip_url' ) : '';
-	if ( '' === $text && function_exists( 'ekc_reservation_events' ) ) {
-		$events = ekc_reservation_events(
-			array(
-				'limit'     => 1,
-				'available' => true,
-			)
-		);
-		$event  = $events[0] ?? null;
-		if ( is_array( $event ) && ! empty( $event['date'] ) ) {
-			// date = „čt 15. 1. 2026, 18:00“, label = nabídka (jinak název termínu).
-			$text = sprintf( 'Nejbližší skupinová lekce: %s · %s', (string) ( $event['label'] ?? '' ), (string) $event['date'] );
-			$url  = ivb_booking_url();
-			if ( $url && ! empty( $event['id'] ) ) {
-				// add_query_arg() kotvu adresy zachová (titulka bez stránky rezervace má #rezervace).
-				$url = add_query_arg( 'termin', (int) $event['id'], $url );
-				if ( ! str_contains( $url, '#' ) ) {
-					$url .= '#rezervace';
-				}
-			}
-		}
-	}
 	// Mezery a „·“ na okrajích po znacích (trim() s maskou by bral bajty a rozbil UTF-8, např. « nebo NBSP).
 	return array(
 		'text' => (string) preg_replace( '/^[\s·]+|[\s·]+$/u', '', $text ),

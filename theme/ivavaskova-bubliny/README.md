@@ -17,7 +17,7 @@ Povinně statická úvodní stránka: úvodní **Domů**, stránka příspěvků
 | Titulka | stránka nastavená jako úvodní (`front-page.php`, jen se statickou úvodní stránkou); obsah stránky Domů, když nějaký má, se vypíše pod nabídkami |
 | Nabídky (karty „Co nabízím“) | stránky se šablonou stránky **Nabídka**, pořadí podle Atributy stránky → Pořadí |
 | Co nabízím | běžná stránka; její podstránky se pod obsahem vypíšou jako karty |
-| O mně | stránka s adresou `o-mne` (fotka = náhledový obrázek, text = úryvek) |
+| O mně | stránka s adresou `o-mne` (fotka = náhledový obrázek, text = úryvek); bez náhledového obrázku na titulce zlaté slunce s avatarem a podpisem |
 | Moje dětské knihy | stránka se šablonou **Svět knih**; náhledový obrázek = ilustrace v obláčku, podstránky = knihy |
 | Kontakt a rezervace | stránka se šablonou **Kontakt a rezervace**: obsah se shortcodem `[ekc_rezervace]` jde do rozhovoru místo formuláře; obsah bez shortcodu (úvodní text) se vypíše nad panelem a v rozhovoru je formulář modulu |
 | Blog | stránka příspěvků (Nastavení → Čtení); bez ní archiv rubriky `archiv`, jinak se odkaz „Archiv článků“ nevypíše |
@@ -33,7 +33,7 @@ Na stránkách:
 
 ## Přizpůsobit → Iva Vašková – Mluvící bubliny
 
-- **Titulka**: slogan, text v bublině, 3 střídající se fotky úvodu, malá fotka v rohu, pruh nad hlavičkou (prázdný = nejbližší skupinový termín).
+- **Titulka**: slogan, text v bublině, 3 střídající se fotky úvodu, malá fotka v rohu, pruh nad hlavičkou (jen když je vyplněný).
 - **Patička**: kontaktní e-mail a telefon, fotka do rozhovoru (avatar), odkaz a text odběru novinek, copyright a podpis.
 - **Sociální sítě**, **SEO a analytika**: kanonické volby (GA ID, sítě, popis webu).
 - Menu: **Hlavní menu** (2 úrovně, Co nabízím s podmenu) a **Odkazy v patičce** (bez menu: Soma Synergy, Kundalini Activation Training, Kontakt a rezervace, Archiv článků).
@@ -44,6 +44,7 @@ Na stránkách:
 | Cesta | Obsah |
 |---|---|
 | `style.css`, `functions.php` | hlavička šablony (verze, Update URI), identita `EKT_*` (`EKT_LEGACY = []`) a načtení modulů |
+| `screenshot.png` | náhled šablony ve Vzhled → Šablony (titulka 1200 × 900) |
 | `front-page.php` | titulka: úvod, nabídky, O mně, noc knih s „portálem“, blog, rezervace, recenze |
 | `page.php`, `page-nabidka.php`, `page-knihy.php`, `page-rezervace.php` | stránka, šablony stránek Nabídka, Svět knih, Kontakt a rezervace |
 | `single.php`, `index.php`, `404.php`, `comments.php`, `searchform.php` | článek, výpisy (blog, rubriky, hledání), nenalezeno, komentáře, hledání |

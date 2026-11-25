@@ -338,10 +338,22 @@
 				});
 			});
 		};
-		var setMode = function () { root.classList.toggle('portal-on', mq.matches); onScroll(); };
+		// Výstup se zasune pod poslední výšku okna světa knih (nejvýš celou jeho výšku): zavírání
+		// bubliny běží, zatímco knihy odjíždějí, místo prázdné noci za nimi.
+		var out = document.querySelector('[data-ivb-portal="out"]');
+		var books = document.getElementById('knihy');
+		var fitOut = function () {
+			if (!out || !books) { return; }
+			if (!root.classList.contains('portal-on')) { out.style.marginTop = out.style.height = ''; return; }
+			var o = Math.min(innerHeight, books.offsetHeight);
+			out.style.marginTop = -o + 'px';
+			out.style.height = (innerHeight + o) + 'px';
+		};
+		var setMode = function () { root.classList.toggle('portal-on', mq.matches); fitOut(); onScroll(); };
 		if (mq.addEventListener) { mq.addEventListener('change', setMode); }
 		addEventListener('scroll', onScroll, { passive: true });
-		addEventListener('resize', onScroll);
+		addEventListener('resize', function () { fitOut(); onScroll(); });
+		if (books && window.ResizeObserver) { new ResizeObserver(function () { fitOut(); onScroll(); }).observe(books); }
 		setMode();
 	}
 })();

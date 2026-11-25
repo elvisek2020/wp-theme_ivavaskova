@@ -1,5 +1,13 @@
 # Changelog
 
+## v0.4.4 — 2026-11-25
+
+### Šablona „Mluvící bubliny“
+- Bez pruhu s nejbližší lekcí nad hlavičkou; pruh se ukáže, jen když se do Přizpůsobit → Titulka → Pruh nad hlavičkou napíše text.
+- O mně na titulce bez náhledového obrázku: místo osamocené bubliny mluví bublina ze zlatého slunce s fotkou Ivy (avatar) a podpisem.
+- Kratší konec světa knih: bublina se zavírá, zatímco knihy odjíždějí, místo prázdné noci přes celou výšku okna.
+- Náhled šablony ve Vzhled → Šablony (`screenshot.png`).
+
 ## v0.4.3 — 2026-11-25
 
 ### Šablona „Mluvící bubliny“
