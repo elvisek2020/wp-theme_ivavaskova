@@ -310,7 +310,16 @@
 		if (/^\d[\d\s.,]*$/.test(t)) { el.textContent = t + '\u00a0Kč'; }
 	});
 
-	/* ---------- Noc knih: vstup a výstup skrz bublinu ---------- */
+	/* Konec světa knih: tečky, bublinka a text naskočí postupně, když se dostanou do okna. */
+	var exitEl = document.querySelector('[data-ivb-exit]');
+	if (exitEl && hasIO && !reduce) {
+		root.classList.add('exit-js');
+		new IntersectionObserver(function (en, obs) {
+			if (en[0].isIntersecting) { exitEl.classList.add('is-in'); obs.disconnect(); }
+		}, { rootMargin: '0px 0px -15% 0px' }).observe(exitEl);
+	}
+
+	/* ---------- Noc knih: vstup skrz bublinu ---------- */
 	var portals = document.querySelectorAll('[data-ivb-portal]');
 	if (portals.length) {
 		var mq = window.matchMedia('(prefers-reduced-motion: no-preference) and (max-height: 1300px)');
@@ -325,35 +334,17 @@
 					var r = p.getBoundingClientRect(), total = p.offsetHeight - h;
 					if (total <= 0) { return; }
 					var k = Math.min(Math.max(-r.top / total, 0), 1);
-					var st = p.querySelector('.stage'), e;
-					if (p.dataset.ivbPortal === 'in') {
-						e = Math.pow(k, 1.7);
-						st.style.setProperty('--r', (40 + (rMax - 40) * e) + 'px');
-						st.style.setProperty('--t', Math.min(Math.max((k - 0.45) / 0.35, 0), 1));
-						st.style.setProperty('--capo', Math.max(1 - k * 4, 0));
-					} else {
-						e = Math.pow(1 - k, 1.7);
-						st.style.setProperty('--r', (40 + (rMax - 40) * e) + 'px');
-					}
+					var st = p.querySelector('.stage'), e = Math.pow(k, 1.7);
+					st.style.setProperty('--r', (40 + (rMax - 40) * e) + 'px');
+					st.style.setProperty('--t', Math.min(Math.max((k - 0.45) / 0.35, 0), 1));
+					st.style.setProperty('--capo', Math.max(1 - k * 4, 0));
 				});
 			});
 		};
-		// Výstup se zasune pod poslední výšku okna světa knih (nejvýš celou jeho výšku): zavírání
-		// bubliny běží, zatímco knihy odjíždějí, místo prázdné noci za nimi.
-		var out = document.querySelector('[data-ivb-portal="out"]');
-		var books = document.getElementById('knihy');
-		var fitOut = function () {
-			if (!out || !books) { return; }
-			if (!root.classList.contains('portal-on')) { out.style.marginTop = out.style.height = ''; return; }
-			var o = Math.min(innerHeight, books.offsetHeight);
-			out.style.marginTop = -o + 'px';
-			out.style.height = (innerHeight + o) + 'px';
-		};
-		var setMode = function () { root.classList.toggle('portal-on', mq.matches); fitOut(); onScroll(); };
+		var setMode = function () { root.classList.toggle('portal-on', mq.matches); onScroll(); };
 		if (mq.addEventListener) { mq.addEventListener('change', setMode); }
 		addEventListener('scroll', onScroll, { passive: true });
-		addEventListener('resize', function () { fitOut(); onScroll(); });
-		if (books && window.ResizeObserver) { new ResizeObserver(function () { fitOut(); onScroll(); }).observe(books); }
+		addEventListener('resize', onScroll);
 		setMode();
 	}
 })();

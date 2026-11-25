@@ -1,7 +1,7 @@
 <?php
 /**
  * Titulka: úvod s rotujícími fotkami, nabídky, obsah stránky Domů, O mně, vstup do nočního světa
- * knih, poslední články, rezervace a recenze. Sekce bez obsahu se nevypíšou.
+ * knih, rezervace, recenze a nakonec poslední články. Sekce bez obsahu se nevypíšou.
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -51,10 +51,10 @@ if ( $ivb_books ) {
 	);
 }
 
-get_template_part( 'template-parts/blog' );
-
 get_template_part( 'template-parts/reservation', null, array( 'id' => 'rezervace' ) );
 
 get_template_part( 'template-parts/reviews' );
+
+get_template_part( 'template-parts/blog' );
 
 get_footer();

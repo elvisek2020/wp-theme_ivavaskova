@@ -17,7 +17,7 @@ Povinně statická úvodní stránka: úvodní **Domů**, stránka příspěvků
 | Titulka | stránka nastavená jako úvodní (`front-page.php`, jen se statickou úvodní stránkou); obsah stránky Domů, když nějaký má, se vypíše pod nabídkami |
 | Nabídky (karty „Co nabízím“) | stránky se šablonou stránky **Nabídka**, pořadí podle Atributy stránky → Pořadí |
 | Co nabízím | běžná stránka; její podstránky se pod obsahem vypíšou jako karty |
-| O mně | stránka s adresou `o-mne` (fotka = náhledový obrázek, text = úryvek); bez náhledového obrázku na titulce zlaté slunce s avatarem a podpisem |
+| O mně | stránka s adresou `o-mne` (fotka = náhledový obrázek, text = úryvek); bez náhledového obrázku na titulce i na stránce zlaté slunce s avatarem a podpisem |
 | Moje dětské knihy | stránka se šablonou **Svět knih**; náhledový obrázek = ilustrace v obláčku, podstránky = knihy |
 | Kontakt a rezervace | stránka se šablonou **Kontakt a rezervace**: obsah se shortcodem `[ekc_rezervace]` jde do rozhovoru místo formuláře; obsah bez shortcodu (úvodní text) se vypíše nad panelem a v rozhovoru je formulář modulu |
 | Blog | stránka příspěvků (Nastavení → Čtení); bez ní archiv rubriky `archiv`, jinak se odkaz „Archiv článků“ nevypíše |
@@ -55,7 +55,7 @@ Na stránkách:
 | `inc/site-ivavaskova.php` | výchozí hodnoty Přizpůsobit (GA, sítě, patička, popis webu), doprovodný plugin `ivavaskova-core` pro upozornění v administraci |
 | `inc/ekt/*.php` | kanonické moduly: `common`, `seo`, `analytics`, `content-links`, `lightbox`, `embeds`, `social`, `comments-antispam`, `typography`, `updater` |
 | `assets/css/` | `fonts.css`, `main.css` (tokeny varianty 5 + most `--ekt-*`), `editor.css` |
-| `assets/js/theme.js` | střídání fotek, menu a podmenu, tlačítko Rezervovat, slunce na dráze, balíček recenzí, vstup do noci |
+| `assets/js/theme.js` | střídání fotek, menu a podmenu, tlačítko Rezervovat, slunce na dráze, balíček recenzí, vstup do noci a postupné bublinky na jejím konci |
 | `assets/fonts/` | Bricolage Grotesque (osa opsz), Karla, Caveat, Playwrite CZ – woff2 a licence OFL |
 | `assets/img/` | hvězdy a obláček (SVG) |
 

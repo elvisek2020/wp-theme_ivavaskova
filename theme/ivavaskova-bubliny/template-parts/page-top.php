@@ -1,7 +1,8 @@
 <?php
 /**
  * Začátek stránky: drobečková navigace (nadřazená stránka), s náhledovým obrázkem fotka v oblázku
- * a bublina s nadpisem, štítky a úryvkem; bez obrázku jen nadpis a úryvek.
+ * a bublina s nadpisem, štítky a úryvkem; bez obrázku jen nadpis a úryvek. Stránka O mně bez
+ * obrázku má místo fotky zlaté slunce s avatarem (jako na titulce).
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -11,8 +12,10 @@ $ivb_parent = $ivb_post && $ivb_post->post_parent ? get_post( $ivb_post->post_pa
 $ivb_img    = $ivb_post ? ivb_thumb_pebble( $ivb_post, '', '(max-width: 980px) 72vw, 420px' ) : '';
 $ivb_lead   = $ivb_post && has_excerpt( $ivb_post ) && ! post_password_required( $ivb_post ) ? get_the_excerpt( $ivb_post ) : '';
 $ivb_chips  = ivb_chips();
+$ivb_about  = ivb_about_page();
+$ivb_sun    = ! $ivb_img && $ivb_post && $ivb_about && $ivb_about->ID === $ivb_post->ID;
 // Bez fotky, úryvku i štítků by bublina nesla jen nadpis – pak stačí obyčejný nadpis stránky.
-$ivb_plain  = ! $ivb_img && '' === $ivb_lead && '' === $ivb_chips;
+$ivb_plain  = ! $ivb_img && ! $ivb_sun && '' === $ivb_lead && '' === $ivb_chips;
 ?>
 <section class="sec page-top iso<?php echo $ivb_plain ? ' page-top--plain' : ''; ?>">
 	<div class="wrap">
@@ -26,8 +29,8 @@ $ivb_plain  = ! $ivb_img && '' === $ivb_lead && '' === $ivb_chips;
 		<?php if ( $ivb_plain ) : ?>
 			<h1><?php the_title(); ?></h1>
 		<?php else : ?>
-			<div class="sub-top<?php echo $ivb_img ? '' : ' sub-top--solo'; ?>">
-				<?php echo $ivb_img; // phpcs:ignore WordPress.Security.EscapeOutput -- HTML z WordPressu ?>
+			<div class="sub-top<?php echo $ivb_img ? '' : ( $ivb_sun ? ' sub-top--sun' : ' sub-top--solo' ); ?>">
+				<?php echo $ivb_sun ? ivb_about_medal( false ) : $ivb_img; // phpcs:ignore WordPress.Security.EscapeOutput -- HTML z WordPressu / escapováno ve funkci ?>
 				<div class="bub tail t-left">
 					<h1><?php the_title(); ?></h1>
 					<?php echo $ivb_chips; // phpcs:ignore WordPress.Security.EscapeOutput -- escapováno ve funkci ?>

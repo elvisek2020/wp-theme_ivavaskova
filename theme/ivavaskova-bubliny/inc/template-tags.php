@@ -68,6 +68,20 @@ function ivb_about_page(): ?WP_Post {
 }
 
 /**
+ * Zlaté slunce s avatarem (Přizpůsobit → Patička → Fotka do rozhovoru) a podpisem – místo fotky
+ * u O mně bez náhledového obrázku (titulka i stránka O mně).
+ *
+ * @param bool $lazy Líné načtení fotky (false nahoře na stránce O mně).
+ */
+function ivb_about_medal( bool $lazy = true ): string {
+	$id  = function_exists( 'ekt_opt' ) ? (int) ekt_opt( 'site_avatar' ) : 0;
+	$img = $id ? wp_get_attachment_image( $id, 'medium', false, array( 'alt' => '', 'sizes' => '200px', 'loading' => $lazy ? 'lazy' : 'eager' ) ) : '';
+	return '<div class="about-medal" aria-hidden="true"><div class="about-medal__sun">' . ivb_sun( 'about-medal__rays' )
+		. ( $img ? '<span class="about-medal__ava">' . $img . '</span>' : '' )
+		. '</div><span class="hand">' . esc_html( get_bloginfo( 'name' ) ) . '</span></div>';
+}
+
+/**
  * Podstránky (publikované) seřazené podle pořadí.
  *
  * @param int $parent ID nadřazené stránky.

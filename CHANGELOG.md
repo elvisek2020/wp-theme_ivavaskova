@@ -1,5 +1,12 @@
 # Changelog
 
+## v0.4.5 — 2026-11-25
+
+### Šablona „Mluvící bubliny“
+- Stránka O mně bez náhledového obrázku má nahoře stejné zlaté slunce s fotkou Ivy a podpisem jako titulka.
+- Blog na titulce až na konci, za Zkušenostmi z lekcí.
+- Nový konec světa knih na titulce: místo zavírajícího se kruhu přes celou obrazovku má noc zaoblený spodek a pod ní postupně naskočí tečky, malá noční bublinka a „a zase zpátky do dne“.
+
 ## v0.4.4 — 2026-11-25
 
 ### Šablona „Mluvící bubliny“

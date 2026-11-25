@@ -2,7 +2,8 @@
 /**
  * Noční svět dětských knih: tmavá plocha se zlatými hvězdami, ilustrace v obláčku (náhledový
  * obrázek stránky se šablonou „Svět knih“) a knihy v bublinách (podstránky té stránky).
- * Na titulce s „portálem“: noc se při posunu stránky rozevře z malé bubliny.
+ * Na titulce s „portálem“: noc se při posunu stránky rozevře z malé bubliny; na konci se svět knih
+ * uzavře zaobleným okrajem a noc „odpluje“ do malé bubliny (tečky a bublina se postupně objeví).
  *
  * $args: page (WP_Post), portal (bool, titulka), single (bool, samotná stránka – nadpis h1 a obsah).
  */
@@ -158,24 +159,11 @@ $ivb_sky = array(
 </section>
 
 <?php if ( $ivb_portal ) : ?>
-	<div class="portal" data-ivb-portal="out" aria-hidden="true">
-		<div class="stage">
-			<div class="nightlayer">
-				<div class="stars">
-					<?php
-					echo ivb_star( 'left:calc(50% - 18px);top:calc(50% - 16px);width:11px;height:11px' ) . ivb_star( 'left:calc(50% + 12px);top:calc(50% + 6px);width:6px;height:6px', true ) // phpcs:ignore WordPress.Security.EscapeOutput -- statické SVG
-						. ivb_star( 'left:16%;top:24%;width:14px;height:14px' ) . ivb_star( 'left:78%;top:20%;width:20px;height:20px' )
-						. ivb_star( 'left:30%;top:76%;width:6px;height:6px', true ) . ivb_star( 'left:66%;top:70%;width:10px;height:10px' );
-					?>
-				</div>
-			</div>
-			<div class="ring"></div>
-		</div>
-	</div>
-	<div class="books-exit" aria-hidden="true">
+	<div class="books-exit" aria-hidden="true" data-ivb-exit>
+		<div class="dots"><i></i><i></i><i></i></div>
 		<div class="mini-wrap"><div class="mini-night">
 			<?php echo ivb_star( 'left:22px;top:24px;width:11px;height:11px' ) . ivb_star( 'left:50px;top:44px;width:5px;height:5px', true ); // phpcs:ignore WordPress.Security.EscapeOutput -- statické SVG ?>
 		</div></div>
-		<div class="dots"><i></i><i></i><i></i></div>
+		<span class="hand">a zase zpátky do dne</span>
 	</div>
 <?php endif; ?>

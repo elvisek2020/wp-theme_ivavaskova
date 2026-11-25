@@ -306,6 +306,8 @@ body:has(.ekt-consent:not([hidden])) .fab { opacity: 0; visibility: hidden; poin
 .sub-top .bub { --bub: var(--khaki-l); --shape: var(--b3); max-width: 600px; --ty: 46%; }
 .sub-top--solo { grid-template-columns: minmax(0, 760px); }
 .sub-top--solo .bub::after { display: none; }
+.sub-top--sun { grid-template-columns: minmax(0, 360px) minmax(0, 720px); gap: 72px; justify-content: center; }
+.sub-top--sun .bub { max-width: none; --ty: calc(50% - 40px); padding: 40px 48px 42px; }
 .sub-top h1 { font-size: clamp(34px, 4.2vw, 54px); margin-bottom: 18px; }
 
 .page-head { padding: 72px 0 8px; }
@@ -512,11 +514,7 @@ body:has(.ekt-consent:not([hidden])) .fab { opacity: 0; visibility: hidden; poin
 /* Vstup se vytáhne do spodního okraje sekce nad ním, ať před bublinou nezůstane prázdná výška okna.
  * Jen vstup: výstup leží za knihami a jeho noční plocha by překryla konec seznamu knih. */
 .portal-on .portal[data-ivb-portal="in"] { margin-top: -30vh; }
-/* Výstup leží pod koncem světa knih (výšku a přesah nastaví theme.js): bublina se zavírá, zatímco
- * knihy odjíždějí nahoru, a za knihami nezůstane prázdná noc. */
-.portal-on .books { z-index: 1; }
-.portal-on .portal[data-ivb-portal="out"] { z-index: 0; }
-.portal-on .books-entry, .portal-on .books-exit { display: none; }
+.portal-on .books-entry { display: none; }
 .stage { position: sticky; top: 0; height: 100vh; overflow: hidden; }
 .nightlayer { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 40%, #22306a 0%, var(--night) 60%); clip-path: circle(var(--r, 40px) at 50% 50%); }
 .ring {
@@ -535,7 +533,17 @@ body:has(.ekt-consent:not([hidden])) .fab { opacity: 0; visibility: hidden; poin
 .stars { position: absolute; inset: 0; pointer-events: none; }
 .stars svg, .books-stars svg { position: absolute; color: var(--star); }
 .books-entry, .books-exit { display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 10px 0 0; }
-.books-exit { flex-direction: column-reverse; padding: 0 0 10px; }
+.books-exit { padding: 14px 0 0; }
+.books-exit .hand { margin-top: 8px; }
+/* Postupné „odplutí“ noci: tečky, bublinka a text naskočí jeden po druhém (třída z theme.js). */
+.exit-js .books-exit .dots i, .exit-js .books-exit .mini-wrap, .exit-js .books-exit .hand {
+	opacity: 0; scale: .3; transition: opacity .5s ease, scale .6s cubic-bezier(.34, 1.56, .64, 1);
+}
+.exit-js .books-exit .dots i:nth-child(2) { transition-delay: .15s; }
+.exit-js .books-exit .dots i:nth-child(3) { transition-delay: .3s; }
+.exit-js .books-exit .mini-wrap { transition-delay: .48s; }
+.exit-js .books-exit .hand { scale: 1; translate: 0 8px; transition: opacity .6s ease .8s, translate .6s ease .8s; }
+.exit-js .books-exit.is-in .dots i, .exit-js .books-exit.is-in .mini-wrap, .exit-js .books-exit.is-in .hand { opacity: 1; scale: 1; translate: 0 0; }
 .mini-night { position: relative; width: 80px; height: 80px; border-radius: 50%; background: var(--night); overflow: hidden; }
 .mini-night svg { position: absolute; color: var(--star); }
 .mini-wrap { position: relative; }
@@ -551,7 +559,7 @@ body:has(.ekt-consent:not([hidden])) .fab { opacity: 0; visibility: hidden; poin
 	color: var(--night-t); padding: 120px 0 130px; overflow: hidden; margin-top: 10px;
 	border-radius: 50% 50% 50% 50% / 160px 160px 160px 160px;
 }
-.portal-on .books { border-radius: 0; margin: 0; background: radial-gradient(ellipse 60% 40% at 30% 30%, #22306a 0%, rgba(34, 48, 106, 0) 100%), var(--night); }
+.portal-on .books { border-radius: 0 0 50% 50% / 0 0 160px 160px; margin: 0; background: radial-gradient(ellipse 60% 40% at 30% 30%, #22306a 0%, rgba(34, 48, 106, 0) 100%), var(--night); }
 .books--page { border-radius: 50% 50% 0 0 / 160px 160px 0 0; margin-top: 24px; padding-bottom: 140px; }
 .books h1, .books h2 { color: var(--night-t); }
 .books .lead { color: #D4D7EA; }
@@ -936,7 +944,7 @@ body:has(.ekt-consent:not([hidden])) .fab { opacity: 0; visibility: hidden; poin
 	.sub-top .bub::after { left: var(--tx, 44%); top: -28px; transform: scaleY(-1); }
 	.about-in { grid-template-columns: 1fr; gap: 56px; }
 	.about .bub::after { left: var(--tx, 44%); top: -28px; transform: scaleY(-1); }
-	.about-in--sun { gap: 48px; }
+	.about-in--sun, .sub-top--sun { gap: 48px; }
 	.about-medal__sun { width: min(280px, 80%); }
 	.books-grid { grid-template-columns: 1fr; gap: 110px; }
 	.book:nth-child(2n) { margin-left: 0; }
@@ -984,6 +992,7 @@ body:has(.ekt-consent:not([hidden])) .fab { opacity: 0; visibility: hidden; poin
 	.fab .lab { display: none; }
 	.books { padding: 100px 0 110px; border-radius: 50% 50% 50% 50% / 80px 80px 80px 80px; }
 	.books--page { border-radius: 50% 50% 0 0 / 80px 80px 0 0; }
+	.portal-on .books { border-radius: 0 0 50% 50% / 0 0 80px 80px; }
 	.is-style-ivb-arc { padding-left: 44px; }
 	.is-style-ivb-arc li:nth-child(even) { margin-left: 12px; }
 	.is-style-ivb-bubble { padding: 24px 22px; }
