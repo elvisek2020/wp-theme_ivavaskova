@@ -1,5 +1,16 @@
 # Changelog
 
+## v0.4.9 — 2026-11-27
+
+### Šablona „Mluvící bubliny“
+- Vzor „Jak lekce probíhá“: podtitul „Bezpečně a ve Tvém vlastním tempu“ a fáze v pořadí podle Ivy (vleže, bez úsilí, hudba, vědomý dotek, vlastní energie).
+- Poznámka k rezervaci u nabídky (Nastavení stránky): po výběru nabídky ji rozhovor odpoví a místo přihlášky vede na předběžný zájem – Innerdance „od jara 2027“.
+- Knihy: tlačítka Koupit a Ukázka (Nastavení stránky knihy) v kartě i na stránce knihy; kniha „připravuji“ jako karta bez odkazů; fotky knih se zaoblenými rohy; v kartě zkrácený popis.
+
+### Obsah webu (zadání Ivy 27. 11. 2026, mimo repo)
+- Texty Soma Synergy, Innerdance (s upozorněním a srovnáním se Soma Synergy), Energetický obraz, O mně (s kurzy a certifikacemi), úvod ke knihám a popisy knih; nové fotky úvodu, nabídek, O mně, knih a kontaktu.
+- Nová kniha Duše píše verše, místo pro e-book „Hudba budoucnosti“ (připravuji); Dítě jako zrcadlo skryté (koncept).
+
 ## v0.4.8 — 2026-11-25
 
 ### Šablona „Mluvící bubliny“

@@ -82,6 +82,30 @@ function ivb_about_medal( bool $lazy = true ): string {
 }
 
 /**
+ * Tlačítka knihy: Koupit (e-shop) a Ukázka – z Nastavení stránky knihy, otevírají se v novém okně.
+ * Kniha v přípravě (Nastavení → Kniha: připravuji) tlačítka nemá.
+ *
+ * @param WP_Post $post  Stránka knihy.
+ * @param string  $class Třídy obalu.
+ */
+function ivb_book_links( WP_Post $post, string $class = 'book-links' ): string {
+	if ( ! function_exists( 'ekt_post_setting' ) || ekt_post_setting( 'site_soon', $post ) ) {
+		return '';
+	}
+	$title = get_the_title( $post );
+	$out   = '';
+	$buy   = esc_url( (string) ekt_post_setting( 'site_buy_url', $post ) );
+	$demo  = esc_url( (string) ekt_post_setting( 'site_sample_url', $post ) );
+	if ( $buy ) {
+		$out .= '<a class="btn" href="' . $buy . '" target="_blank" rel="noopener" aria-label="' . esc_attr( 'Koupit knihu ' . $title . ' (otevře se v novém okně)' ) . '">Koupit</a>';
+	}
+	if ( $demo ) {
+		$out .= '<a class="btn btn-white" href="' . $demo . '" target="_blank" rel="noopener" aria-label="' . esc_attr( 'Ukázka z knihy ' . $title . ' (otevře se v novém okně)' ) . '">Ukázka</a>';
+	}
+	return $out ? '<p class="' . esc_attr( $class ) . '">' . $out . '</p>' : '';
+}
+
+/**
  * Podstránky (publikované) seřazené podle pořadí.
  *
  * @param int $parent ID nadřazené stránky.

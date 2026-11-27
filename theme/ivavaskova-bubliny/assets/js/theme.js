@@ -236,10 +236,12 @@
 			// Nabídka se štítkem „skupinově“ (data-ivb-group) se na formu ptá i bez vypsaného termínu.
 			var picked = svcBox.querySelector('input:checked');
 			var groupy = !!(picked && picked.hasAttribute('data-ivb-group'));
+			// Poznámka k rezervaci (např. „od jara 2027“): bez otázky na formu rovnou předběžný zájem.
+			var note = picked && partSingle ? (picked.getAttribute('data-ivb-note') || '') : '';
 			show('service', true);
-			var askMode = !!state.service && !!partSingle && (open || groupy);
+			var askMode = !!state.service && !!partSingle && !note && (open || groupy);
 			show('mode', askMode);
-			if (state.service && !askMode) { state.mode = open ? 'group' : (partSingle ? 'single' : 'group'); }
+			if (state.service && !askMode) { state.mode = note ? 'single' : (open ? 'group' : (partSingle ? 'single' : 'group')); }
 			chat.querySelectorAll('input[name="ivb_mode"]').forEach(function (i) { i.checked = i.value === state.mode; });
 
 			// Skupinově bez otevřeného termínu: místo přihlášky poptávka („dám vědět o dalším termínu“).
@@ -259,14 +261,16 @@
 
 			if (showSingle) {
 				if (singleText) {
-					singleText.textContent = noTerm
+					singleText.textContent = note ? note : noTerm
 						? 'Skupinový termín teď vypsaný není. Napiš a dám vědět o dalším – nebo domluvíme individuální lekci.'
 						: open
 							? 'Individuální lekci domluvíme po odeslání – napiš, kdy by se hodila.'
 							: (state.service ? 'Termín se domlouvá individuálně – stačí napsat.' : 'Napiš, domluvíme termín.');
 				}
 				if (inquiry && state.service && (inquiry.value === '' || inquiry.value === prefilled)) {
-					prefilled = 'Dobrý den, mám zájem o ' + (noTerm ? 'skupinovou lekci ' : (open ? 'individuální lekci ' : '')) + state.service + '. ';
+					prefilled = note
+						? 'Dobrý den, mám předběžný zájem o ' + state.service + '. '
+						: 'Dobrý den, mám zájem o ' + (noTerm ? 'skupinovou lekci ' : (open ? 'individuální lekci ' : '')) + state.service + '. ';
 					inquiry.value = prefilled;
 				}
 			}

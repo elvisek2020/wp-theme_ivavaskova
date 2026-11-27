@@ -27,6 +27,9 @@ Na stránkách:
 - **Úryvek** (panel Stránka → Úryvek) je úvodní text v bublině vedle fotky a text karty. Bez náhledového obrázku mluví bublina ze zlatého slunce s avatarem; bez úryvku i štítků je nahoře jen nadpis.
 - **Nastavení článku → Štítky**: „skupinově, individuálně“, „e-book“… (u nabídek a knih). Nabídka se štítkem obsahujícím „skupinově“ se v rezervaci ptá na formu (skupinově / individuálně) i bez vypsaného termínu; bez něj (Energetický obraz – „individuální domluva“) jde rovnou na poptávku.
 - **Nastavení článku → Výřez náhledového obrázku**: která část fotky zůstane v oblázku.
+- **Nastavení článku → Poznámka k rezervaci** (u nabídky): věta, kterou rozhovor v rezervaci po výběru nabídky odpoví (např. Innerdance „od jara 2027“); místo přihlášky na termín pak vede na formulář pro předběžný zájem.
+- **Nastavení článku → Kniha: odkaz na koupi / odkaz na ukázku** (u knihy): tlačítka Koupit a Ukázka v kartě knihy i nahoře na stránce knihy, otevírají se v novém okně. Ukázku jako PDF nahrát do Médií a zkopírovat její adresu.
+- **Nastavení článku → Kniha: připravuji**: karta knihy bez odkazů s čárkovaným obrysem – místo pro knihu, která ještě nevyšla (štítek „připravuji“ dopsat do Štítků).
 - **Vzory bloků → Iva Vašková**: „Jak lekce probíhá“ (nadpis, podtitulek, 5 fází na dráze slunce, tlačítko Objednat se), „Bublina s textem“, „Kniha v noční bublině“.
 - **Styly bloků**: Skupina → Bublina / Dráha slunce (fáze) / Noc s hvězdami, Média a text → Kniha (noc).
 - **Recenze** na stránce nabídky: recenze s kontextem = přesný název stránky, jak je uložený (spojovník zůstává spojovníkem). Stejný název patří i ke službě v nastavení rezervací.

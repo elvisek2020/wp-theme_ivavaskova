@@ -269,3 +269,47 @@ ekt_post_setting_register(
 		),
 	)
 );
+
+// Nabídka: poznámka v rezervaci (např. „Objednat se bude možné od jara 2027“). Vyplněná = po výběru
+// nabídky v rozhovoru Iva odpoví touto větou a místo přihlášky na termín je poptávka (předběžný zájem).
+ekt_post_setting_register(
+	'site_res_note',
+	array(
+		'type'       => 'textarea',
+		'label'      => 'Poznámka k rezervaci',
+		'help'       => 'U nabídky: věta, kterou rozhovor v rezervaci po výběru této nabídky odpoví, např. „Lekce nabízím od jara 2027 – napiš mi, ozvu se, až budou aktuální.“ Vyplněná = místo přihlášky na termín je formulář pro předběžný zájem.',
+		'post_types' => array( 'page' ),
+		'priority'   => 30,
+	)
+);
+// Knihy (podstránky Světa knih): odkazy na koupi a ukázku, kniha v přípravě.
+ekt_post_setting_register(
+	'site_buy_url',
+	array(
+		'type'       => 'text',
+		'label'      => 'Kniha: odkaz na koupi',
+		'help'       => 'Celá adresa e-shopu (https://…). Tlačítko „Koupit“ u knihy, otevře se v novém okně.',
+		'post_types' => array( 'page' ),
+		'priority'   => 40,
+	)
+);
+ekt_post_setting_register(
+	'site_sample_url',
+	array(
+		'type'       => 'text',
+		'label'      => 'Kniha: odkaz na ukázku',
+		'help'       => 'Adresa ukázky – např. PDF nahrané v Médiích (zkopírovat jeho adresu). Tlačítko „Ukázka“ u knihy.',
+		'post_types' => array( 'page' ),
+		'priority'   => 41,
+	)
+);
+ekt_post_setting_register(
+	'site_soon',
+	array(
+		'type'       => 'checkbox',
+		'label'      => 'Kniha: připravuji',
+		'help'       => 'Karta knihy ve Světě knih bez odkazů, se štítkem „připravuji“ – místo pro knihu, která ještě nevyšla.',
+		'post_types' => array( 'page' ),
+		'priority'   => 42,
+	)
+);

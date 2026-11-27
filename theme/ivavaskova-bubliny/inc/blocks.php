@@ -36,7 +36,7 @@ add_action(
 		// Stejná stránka rezervace jako ostatní tlačítka Rezervovat (šablona Kontakt a rezervace);
 		// adresa se při vložení vzoru uloží do obsahu, platí tedy ta z doby vložení.
 		$booking = esc_url( ivb_booking_url() ?: home_url( '/kontakt-a-rezervace/' ) );
-		$phases  = array( 'Hudba', 'Vědomý dotek', 'Práce s životní energií a moudrostí těla', 'Vleže, se zavřenýma očima', 'Bez úsilí a tlaku' );
+		$phases  = array( 'Vleže, se zavřenýma očima', 'Bez úsilí a tlaku', 'Za doprovodu hudby', 'S jemným vědomým dotekem', 'S Tvojí vlastní energií a moudrostí těla' );
 		$items   = '';
 		foreach ( $phases as $phase ) {
 			$items .= '<!-- wp:list-item --><li>' . esc_html( $phase ) . '</li><!-- /wp:list-item -->';
@@ -50,7 +50,7 @@ add_action(
 				'categories'  => array( 'ivb' ),
 				'content'     => '<!-- wp:group {"className":"is-style-ivb-arc"} --><div class="wp-block-group is-style-ivb-arc">'
 					. '<!-- wp:heading --><h2 class="wp-block-heading">Jak lekce probíhá</h2><!-- /wp:heading -->'
-					. '<!-- wp:paragraph --><p>od prvního tónu až k hlubokému klidu</p><!-- /wp:paragraph -->'
+					. '<!-- wp:paragraph --><p>Bezpečně a ve Tvém vlastním tempu</p><!-- /wp:paragraph -->'
 					. '<!-- wp:list {"ordered":true} --><ol class="wp-block-list">' . $items . '</ol><!-- /wp:list -->'
 					. '<!-- wp:buttons --><div class="wp-block-buttons"><!-- wp:button --><div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="' . $booking . '">Objednat se</a></div><!-- /wp:button --></div><!-- /wp:buttons -->'
 					. '</div><!-- /wp:group -->',

@@ -13,7 +13,7 @@ $ivb_img    = $ivb_post ? ivb_thumb_pebble( $ivb_post, '', '(max-width: 980px) 7
 $ivb_lead   = $ivb_post && has_excerpt( $ivb_post ) && ! post_password_required( $ivb_post ) ? get_the_excerpt( $ivb_post ) : '';
 $ivb_chips  = ivb_chips();
 // Bez fotky, úryvku i štítků by bublina nesla jen nadpis – pak stačí obyčejný nadpis stránky.
-$ivb_plain  = ! $ivb_img && '' === $ivb_lead && '' === $ivb_chips;
+$ivb_plain  = ! $ivb_img && '' === $ivb_lead && '' === $ivb_chips && ( ! $ivb_post || '' === ivb_book_links( $ivb_post ) );
 // Bez fotky, ale s textem: místo fotky zlaté slunce s avatarem a bublina mluví z něj.
 $ivb_sun = ! $ivb_img && ! $ivb_plain;
 ?>
@@ -37,6 +37,7 @@ $ivb_sun = ! $ivb_img && ! $ivb_plain;
 					<?php if ( $ivb_lead ) : ?>
 						<p class="sub-top__lead"><?php echo esc_html( $ivb_lead ); ?></p>
 					<?php endif; ?>
+					<?php echo $ivb_post ? ivb_book_links( $ivb_post, 'book-links sub-top__links' ) : ''; // phpcs:ignore WordPress.Security.EscapeOutput -- escapováno ve funkci; jen stránka s odkazy knihy ?>
 				</div>
 			</div>
 		<?php endif; ?>

@@ -123,18 +123,32 @@ $ivb_sky = array(
 				<?php if ( $ivb_books ) : ?>
 					<div class="book-list">
 						<?php foreach ( $ivb_books as $ivb_book ) : ?>
-							<?php $ivb_cover = (int) get_post_thumbnail_id( $ivb_book ); ?>
-							<article class="bub book<?php echo $ivb_cover ? '' : ' book--noimg'; ?>">
+							<?php
+							$ivb_cover = (int) get_post_thumbnail_id( $ivb_book );
+							$ivb_soon  = function_exists( 'ekt_post_setting' ) && ekt_post_setting( 'site_soon', $ivb_book ); // kniha v přípravě: bez odkazů
+							$ivb_cls   = 'bub book' . ( $ivb_cover ? '' : ' book--noimg' ) . ( $ivb_soon ? ' book--soon' : '' );
+							?>
+							<article class="<?php echo esc_attr( $ivb_cls ); ?>">
 								<?php
 								if ( $ivb_cover ) {
-									echo '<a class="book__cover" href="' . esc_url( get_permalink( $ivb_book ) ) . '" tabindex="-1" aria-hidden="true">' . wp_get_attachment_image( $ivb_cover, 'medium_large', false, array( 'sizes' => '(max-width: 640px) 230px, 210px' ) ) . '</a>'; // phpcs:ignore WordPress.Security.EscapeOutput -- HTML z WordPressu
+									$ivb_img = wp_get_attachment_image( $ivb_cover, 'medium_large', false, array( 'sizes' => '(max-width: 640px) 230px, 210px' ) );
+									echo $ivb_soon // phpcs:ignore WordPress.Security.EscapeOutput -- HTML z WordPressu
+										? '<span class="book__cover">' . $ivb_img . '</span>'
+										: '<a class="book__cover" href="' . esc_url( get_permalink( $ivb_book ) ) . '" tabindex="-1" aria-hidden="true">' . $ivb_img . '</a>';
 								}
 								?>
 								<div>
-									<h3><a href="<?php echo esc_url( get_permalink( $ivb_book ) ); ?>"><?php echo esc_html( get_the_title( $ivb_book ) ); ?></a></h3>
+									<?php if ( $ivb_soon ) : ?>
+										<h3><?php echo esc_html( get_the_title( $ivb_book ) ); ?></h3>
+									<?php else : ?>
+										<h3><a href="<?php echo esc_url( get_permalink( $ivb_book ) ); ?>"><?php echo esc_html( get_the_title( $ivb_book ) ); ?></a></h3>
+									<?php endif; ?>
 									<?php echo ivb_chips( $ivb_book ); // phpcs:ignore WordPress.Security.EscapeOutput -- escapováno ve funkci ?>
-									<p><?php echo esc_html( ivb_excerpt( $ivb_book, 24 ) ); ?></p>
-									<a class="more" href="<?php echo esc_url( get_permalink( $ivb_book ) ); ?>" aria-label="<?php echo esc_attr( 'Více o knize ' . get_the_title( $ivb_book ) ); ?>">Více o knize</a>
+									<p><?php echo esc_html( wp_trim_words( ivb_excerpt( $ivb_book, 40 ), 22, '…' ) ); // v kartě krátce, celý popis na stránce knihy ?></p>
+									<?php if ( ! $ivb_soon ) : ?>
+										<?php echo ivb_book_links( $ivb_book ); // phpcs:ignore WordPress.Security.EscapeOutput -- escapováno ve funkci ?>
+										<a class="more" href="<?php echo esc_url( get_permalink( $ivb_book ) ); ?>" aria-label="<?php echo esc_attr( 'Více o knize ' . get_the_title( $ivb_book ) ); ?>">Více o knize</a>
+									<?php endif; ?>
 								</div>
 							</article>
 						<?php endforeach; ?>

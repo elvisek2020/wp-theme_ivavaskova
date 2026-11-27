@@ -623,12 +623,19 @@ body:has(.ekt-consent:not([hidden])) .fab { opacity: 0; visibility: hidden; poin
 .book:nth-child(2n) { --shape: var(--b4); margin-left: 40px; }
 .book::before { border-color: var(--gold); transform: none; inset: -1px; }
 .book--noimg { grid-template-columns: 1fr; }
-.book img { width: 210px; height: auto; filter: drop-shadow(0 8px 16px rgba(0, 0, 0, .35)); }
+.book img { width: 210px; height: auto; border-radius: 18px; filter: drop-shadow(0 8px 16px rgba(0, 0, 0, .35)); }
 .book h3 { font-family: var(--f-book); font-weight: 400; font-size: 30px; line-height: 1.35; color: var(--star); letter-spacing: 0; font-variation-settings: normal; margin: 0 0 6px; }
 .book h3 a { color: inherit !important; text-decoration: none; }
 .book p { margin: 0 0 10px; font-size: 16px; }
 .book .chip { background: transparent; color: var(--night-t); border: 1px solid rgba(237, 238, 247, .5); }
 .book .more { color: var(--star); border-color: var(--star); }
+/* Koupit / Ukázka u knihy (karta ve Světě knih i začátek stránky knihy) */
+.book-links { display: flex; flex-wrap: wrap; gap: 10px; margin: 4px 0 16px; }
+.book-links .btn { min-height: 0; padding: 9px 20px; font-size: 15px; }
+.sub-top__links { margin: 22px 0 0; }
+/* Kniha v přípravě: bez odkazů, čárkovaný obrys */
+.book--soon::before { border-style: dashed; }
+.book--soon .book__cover img { opacity: .85; }
 .books-stars { position: absolute; inset: 0; pointer-events: none; z-index: 0; }
 .books-content { margin-top: 72px; }
 .books-content .entry__content { color: #D4D7EA; }
